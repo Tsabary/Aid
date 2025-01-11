@@ -16,8 +16,8 @@ function HeaderWeb() {
           <Logo />
 
           <div className="flex gap-6">
-            <Link to="/find-volunteers">
-              <Button variant="ghost">Looking for Volunteers</Button>
+            <Link to="/request-assistance">
+              <Button variant="ghost">Looking for Assistance</Button>
             </Link>
 
             {user ? (

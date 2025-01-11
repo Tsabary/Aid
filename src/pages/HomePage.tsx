@@ -1,15 +1,9 @@
-import { useState } from "react";
-import { Header } from "../components/Header";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { helpCategories } from "../constants/categories";
+import TasksFeed from "../components/TasksFeed";
+import { dummyTasks } from "../constants/dummy-data";
 
 function HomePage() {
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [lastVisible, setLastVisible] = useState<Task | null>(null);
-  const [filters, setFilters] = useState<{
-    category: TaskCategory[];
-  }>({ category: [] });
-
   // const handleScroll = useCallback(async () => {
   //   try {
   //     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
@@ -39,26 +33,27 @@ function HomePage() {
 
   return (
     <div>
-      <Header />
-      <div className="flex flex-col items-center p-4">
-        <div className="w-full max-w-7xl mt-0 md:mt-10">
+      <div className="w-full max-w-7xl mt-0 md:mt-10">
+        <div className="flex justify-between">
           <p className="text-2xl font-bold mx-2 mb-4">How could you help?</p>
-          <ToggleGroup
-            type="multiple"
-            className="w-max flex flex-wrap max-w-full justify-start"
-          >
-            {Object.keys(helpCategories).map((k) => (
-              <ToggleGroupItem
-                variant="outline"
-                className="hover:bg-blue-50"
-                value={k}
-                id={k}
-              >
-                {helpCategories[k]}
-              </ToggleGroupItem>
-            ))}
-          </ToggleGroup>
-          {/* <SelectionTabs
+        </div>
+        <ToggleGroup
+          type="multiple"
+          className="w-max flex flex-wrap max-w-full justify-start gap-1.5"
+        >
+          {Object.keys(helpCategories).map((k) => (
+            <ToggleGroupItem
+              variant="outline"
+              className="hover:bg-blue-50 text-xs"
+              value={k}
+              size="xs"
+              id={k}
+            >
+              {helpCategories[k as TaskCategory]}
+            </ToggleGroupItem>
+          ))}
+        </ToggleGroup>
+        {/* <SelectionTabs
             selections={taskCategories}
             currentSelections={filters.category}
             selectionTranslations={taskCategoriesDictionary}
@@ -82,17 +77,14 @@ function HomePage() {
             }
             multiple={false}
           /> */}
-          {/* <div className="mt-8">
-            {tasks.length ? (
-              <TasksFeed
-                tasks={tasks.filter((t) => t.status !== "completed")}
-              />
-            ) : (
-              <p className="text-2xl font-bold mt-4">
-                לא מצאנו יוזמות פעילות שעונות לסינונים שלך
-              </p>
-            )}
-          </div> */}
+        <div className="mt-8">
+          {dummyTasks.length ? (
+            <TasksFeed
+              tasks={dummyTasks.filter((t) => t.status !== "completed")}
+            />
+          ) : (
+            <p className="text-2xl font-bold mt-4">Please expand your search</p>
+          )}
         </div>
       </div>
     </div>

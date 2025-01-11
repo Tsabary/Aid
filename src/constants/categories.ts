@@ -1,4 +1,4 @@
-export const helpCategories: { [key: string]: string } = {
+export const helpCategories: Record<TaskCategory, string>  = {
   housing: "Housing",
   foodAndWater: "Food and Water",
   clothing: "Clothing",

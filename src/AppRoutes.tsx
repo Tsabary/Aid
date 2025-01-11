@@ -8,6 +8,8 @@ import HomePage from "./pages/HomePage";
 import { useUser } from "replyke";
 import SigninPage from "./pages/SigninPage";
 import SignupPage from "./pages/SignupPage";
+import Layout from "./components/shared/Layout";
+import RequestAssistancePage from "./pages/RequestAssistancePage";
 
 function AppRoutes() {
   const { user } = useUser();
@@ -15,7 +17,10 @@ function AppRoutes() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="/request-assistance" element={<RequestAssistancePage />} />
+        </Route>
         <Route
           path="/sign-in"
           element={user ? <Navigate to="/" /> : <SigninPage />}
