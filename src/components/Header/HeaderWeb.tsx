@@ -1,53 +1,38 @@
 import { Link } from "react-router-dom";
+import { UserAvatar, useUser } from "replyke";
 
-import UserMenu from "./UserMenu";
 import Logo from "../shared/Logo";
+import { Button } from "../ui/button";
+import { DropdownMenu, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import WebDropdown from "./WebDropdown";
 
-function HeaderWeb({ dark }: { dark?: boolean }) {
-  function MenuItem({ href, label }: { href: string; label: string }) {
-    return (
-      <Link
-        to={href}
-        className={[
-          "font-semibold transition-all ease-in-out cursor-pointer mx-8",
-          dark
-            ? "text-gray-400 hover:text-gray-900"
-            : "text-gray-400 hover:text-white",
-        ].join(" ")}
-      >
-        {label}
-      </Link>
-    );
-  }
-
+function HeaderWeb() {
+  const { user } = useUser();
   return (
-    <div className="hidden lg:block">
-      <div className="relative mx-auto flex items-center justify-between py-3 px-3 w-full max-w-7xl bg-white">
-        <Logo />
+    <DropdownMenu>
+      <WebDropdown />
+      <div className="hidden lg:block">
+        <div className="relative mx-auto flex items-center justify-between py-3 px-3 w-full max-w-7xl bg-white">
+          <Logo />
 
-        <div className="flex gap-6">
-          <MenuItem href="/find-help" label="אני מחפש\ת מתנדבים" />
-          {/* <MenuItem href="/donate" label="אני רוצה לתרום" /> */}
-          {/* {user ? (
-            <MenuItem href="/studio" label="Studio" />
-          ) : (
-            <p
-              className={[
-                "font-semibold transition-all ease-in-out cursor-pointer",
-                dark
-                  ? "text-gray-400 hover:text-gray-900"
-                  : "text-gray-400 hover:text-white",
-              ].join(" ")}
-              onClick={() => setIsAuthenticationModalShowing(true)}
-            >
-              Studio
-            </p>
-          )} */}
+          <div className="flex gap-6">
+            <Link to="/find-volunteers">
+              <Button variant="ghost">Looking for Volunteers</Button>
+            </Link>
+
+            {user ? (
+              <DropdownMenuTrigger>
+                <UserAvatar user={user} />
+              </DropdownMenuTrigger>
+            ) : (
+              <Link to="/sign-in">
+                <Button variant="ghost">Sign in</Button>
+              </Link>
+            )}
+          </div>
         </div>
-
-        <UserMenu dark={dark} />
       </div>
-    </div>
+    </DropdownMenu>
   );
 }
 

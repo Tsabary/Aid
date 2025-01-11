@@ -1,8 +1,8 @@
 import googleIcon from "../../assets/google.svg";
 
 function GoogleSignInButton() {
-  const BASE_URL = import.meta.env.VITE_PUBLIC_SERVER_URL;
-  const url = BASE_URL + "/api/v1/clients-auth/google";
+  // const BASE_URL = import.meta.env.VITE_PUBLIC_SERVER_URL;
+  const url = "BASE_URL" + "/api/v1/clients-auth/google";
 
   return (
     <a

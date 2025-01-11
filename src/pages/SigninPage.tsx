@@ -9,7 +9,6 @@ import { Label } from "@/components/ui/label";
 
 import AuthenticationFrame from "@/components/authentication/AuthenticationFrame";
 import GoogleSignInButton from "@/components/authentication/GoogleSignInButton";
-import GitHubSignInButton from "@/components/authentication/GitHubSignInButton";
 
 function SigninPage() {
   const { signInWithEmailAndPassword } = useAuth();
@@ -106,12 +105,11 @@ function SigninPage() {
               )} */}
             </div>
             <GoogleSignInButton />
-            <GitHubSignInButton />
           </div>
         </div>
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <Link to="/signup" className="underline">
+          <Link to="/sign-up" className="underline">
             Sign up
           </Link>
         </div>

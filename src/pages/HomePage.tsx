@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Header } from "../components/Header";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { helpCategories } from "../constants/categories";
 
 function HomePage() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -36,11 +38,26 @@ function HomePage() {
   // }, [tasks, lastVisible, handleScroll]);
 
   return (
-    <div dir="rtl">
-      <Header dark />
+    <div>
+      <Header />
       <div className="flex flex-col items-center p-4">
         <div className="w-full max-w-7xl mt-0 md:mt-10">
-          <p className="text-2xl font-bold mx-2 mb-4">במה תוכלו לעזור?</p>
+          <p className="text-2xl font-bold mx-2 mb-4">How could you help?</p>
+          <ToggleGroup
+            type="multiple"
+            className="w-max flex flex-wrap max-w-full justify-start"
+          >
+            {Object.keys(helpCategories).map((k) => (
+              <ToggleGroupItem
+                variant="outline"
+                className="hover:bg-blue-50"
+                value={k}
+                id={k}
+              >
+                {helpCategories[k]}
+              </ToggleGroupItem>
+            ))}
+          </ToggleGroup>
           {/* <SelectionTabs
             selections={taskCategories}
             currentSelections={filters.category}

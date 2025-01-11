@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/logo-black.webp";
 import auth from "../../assets/auth.webp";
 
@@ -6,7 +7,9 @@ function AuthenticationFrame({ children }: { children: ReactNode }) {
   return (
     <div className="w-full lg:grid lg:grid-cols-2 h-screen overflow-hidden items-stretch">
       <div className="bg-white flex flex-col">
-        <img src={logo} className="h-8 aspect-auto self-start m-8" />
+        <Link to="/">
+          <img src={logo} className="h-8 aspect-auto self-start m-8" />
+        </Link>
         <div className="flex items-center justify-center py-12 flex-1">
           <div className="mx-auto grid w-[350px] gap-6">{children}</div>
         </div>
