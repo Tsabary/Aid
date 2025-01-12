@@ -36,7 +36,7 @@ function EditTask({
         className="p-2 bg-blue-500 cursor-pointer"
         onClick={() => setShowEdit(true)}
       >
-        <p className="text-center text-sm text-white">ערכו את הבקשה</p>
+        <p className="text-center text-sm text-white">Edit your request</p>
       </div>
     );
   }

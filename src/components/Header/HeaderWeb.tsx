@@ -5,6 +5,7 @@ import Logo from "../shared/Logo";
 import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import WebDropdown from "./WebDropdown";
+import CompleteYourProfile from "./CompleteYourProfile";
 
 function HeaderWeb() {
   const { user } = useUser();
@@ -16,12 +17,13 @@ function HeaderWeb() {
           <Logo />
 
           <div className="flex gap-6">
+            <CompleteYourProfile />
             <Link to="/request-assistance">
               <Button variant="ghost">Looking for Assistance</Button>
             </Link>
 
             {user ? (
-              <DropdownMenuTrigger>
+              <DropdownMenuTrigger className="flex items-center">
                 <UserAvatar user={user} />
               </DropdownMenuTrigger>
             ) : (
