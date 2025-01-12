@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 import { useUser } from "replyke";
 import { Button } from "../ui/button";
 
-function CompleteYourProfile() {
+function CompleteYourProfile({
+  setProfileDialogOpen,
+}: {
+  setProfileDialogOpen: (state: boolean) => void;
+}) {
   const { user } = useUser();
 
   const remainingSteps =
@@ -11,7 +15,13 @@ function CompleteYourProfile() {
   if (!user || remainingSteps === 0) return null;
   return (
     <Link to="/request-assistance">
-      <Button variant="ghost" className="text-blue-500 hover:text-blue-500">
+      <Button
+        onClick={() => {
+          setProfileDialogOpen(true);
+        }}
+        variant="ghost"
+        className="text-blue-500 hover:text-blue-500"
+      >
         {3 - remainingSteps}/3 Complete your profile
       </Button>
     </Link>

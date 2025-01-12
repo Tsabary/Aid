@@ -4,9 +4,8 @@ import { helpCategories } from "../constants/categories";
 import TasksFeed from "../components/TasksFeed";
 
 function HomePage() {
-  const { entities, createEntity } = useFeed();
+  const { entities } = useFeed();
 
-  console.log({ entities, createEntity });
   // const handleScroll = useCallback(async () => {
   //   try {
   //     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {

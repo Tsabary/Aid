@@ -7,7 +7,11 @@ import { DropdownMenu, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import WebDropdown from "./WebDropdown";
 import CompleteYourProfile from "./CompleteYourProfile";
 
-function HeaderWeb() {
+function HeaderWeb({
+  setProfileDialogOpen,
+}: {
+  setProfileDialogOpen: (state: boolean) => void;
+}) {
   const { user } = useUser();
   return (
     <DropdownMenu>
@@ -17,7 +21,7 @@ function HeaderWeb() {
           <Logo />
 
           <div className="flex gap-6">
-            <CompleteYourProfile />
+            <CompleteYourProfile setProfileDialogOpen={setProfileDialogOpen} />
             <Link to="/request-assistance">
               <Button variant="ghost">Looking for Assistance</Button>
             </Link>

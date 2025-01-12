@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { handleError, useCreateEntity } from "replyke";
+import { useNavigate, useOutletContext } from "react-router-dom";
+import { handleError, useCreateEntity, useUser } from "replyke";
 import { LoaderCircle } from "lucide-react";
 
 import { Textarea } from "../components/ui/textarea";
@@ -21,6 +21,11 @@ type TaskDraft = {
 function FindHelpPage() {
   const navigate = useNavigate();
   const createEntity = useCreateEntity();
+  const { user } = useUser();
+  const { setProfileDialogOpen } = useOutletContext<{
+    setProfileDialogOpen: (state: boolean) => void;
+  }>();
+
   const [newTask, setNewTask] = useState<TaskDraft>({
     content: "",
     volunteersRequired: 1,
@@ -50,6 +55,10 @@ function FindHelpPage() {
 
   const handleSubmit = useCallback(async () => {
     if (isSubmittingRef.current) return;
+    const remainingSteps =
+      (user?.name ? 0 : 1) + (user?.metadata.contact ? 0 : 1);
+
+    if (remainingSteps > 0) setProfileDialogOpen(true);
     if (!newTask.content) {
       setErrors({
         content: "Please describe what you need help with.",
@@ -91,7 +100,7 @@ function FindHelpPage() {
       isSubmittingRef.current = false;
       setIsSubmitting(false);
     }
-  }, [createEntity, newTask, navigate]);
+  }, [createEntity, newTask, navigate, user, setProfileDialogOpen]);
 
   return (
     <div className="w-full max-w-7xl grid gap-4">

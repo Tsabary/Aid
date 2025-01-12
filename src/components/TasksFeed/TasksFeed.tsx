@@ -10,9 +10,6 @@ function TasksFeed({ tasks }: { tasks: Task[] }) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task>();
 
-  // console.log(ts.length);
-  // const tasks: Task[] = Array.from({ length: 20 }, generateTask);
-
   const handleOpenDrawer = async (task: Task) => {
     try {
       setSelectedTask(task);
