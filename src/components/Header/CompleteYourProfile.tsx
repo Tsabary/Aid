@@ -11,7 +11,7 @@ function CompleteYourProfile({
 
   const remainingSteps =
     (user?.name ? 0 : 1) +
-    (user?.metadata.phoneNumber || user?.metadata.email ? 0 : 1);
+    (user?.metadata?.phoneNumber || user?.metadata?.email ? 0 : 1);
 
   if (!user || remainingSteps === 0) return null;
   return (

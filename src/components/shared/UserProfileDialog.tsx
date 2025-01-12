@@ -86,9 +86,9 @@ function UserProfileDialog({
 
   useEffect(() => {
     if (user?.name) setName(user.name);
-    if (user?.metadata.email) setEmail(user.metadata.email);
-    if (user?.metadata.phoneNumber) setPhoneNumber(user.metadata.phoneNumber);
-    if (user?.metadata.preferredContactMethod)
+    if (user?.metadata?.email) setEmail(user.metadata.email);
+    if (user?.metadata?.phoneNumber) setPhoneNumber(user.metadata.phoneNumber);
+    if (user?.metadata?.preferredContactMethod)
       setPreferredContactMethod(user.metadata.preferredContactMethod);
   }, [user]);
 

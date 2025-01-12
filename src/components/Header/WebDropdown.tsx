@@ -18,11 +18,13 @@ function WebDropdown() {
           </>
         )}
 
-        <span>{user?.email}</span>
+        <span className={user?.name ? "font-normal" : ""}>{user?.email}</span>
       </DropdownMenuLabel>
 
       <DropdownMenuSeparator />
-      <DropdownMenuItem onClick={() => signOut?.()}>Sign Out</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => signOut?.()} className="cursor-pointer">
+        Sign Out
+      </DropdownMenuItem>
     </DropdownMenuContent>
   );
 }
