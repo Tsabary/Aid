@@ -15,7 +15,7 @@ function Layout() {
       />
       <div className="min-h-screen relative">
         <Header setProfileDialogOpen={setProfileDialogOpen} />
-        <div className="flex flex-col items-center p-4">
+        <div className="flex flex-col items-center p-4 pb-16">
           <Outlet context={{ profileDialogOpen, setProfileDialogOpen }} />
         </div>
         <Footer />

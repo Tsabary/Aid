@@ -13,6 +13,7 @@ import { Checkbox } from "../components/ui/checkbox";
 import { Separator } from "../components/ui/separator";
 
 type TaskDraft = {
+  title: string;
   content: string;
   volunteersRequired: number | null;
   category: TaskCategory | null;
@@ -27,6 +28,7 @@ function FindHelpPage() {
   }>();
 
   const [newTask, setNewTask] = useState<TaskDraft>({
+    title: "",
     content: "",
     volunteersRequired: 1,
     category: null,
@@ -35,8 +37,8 @@ function FindHelpPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isSubmittingRef = useRef(false);
   const [errors, setErrors] = useState<
-    Record<"content" | "category", string | null>
-  >({ content: null, category: null });
+    Record<"title" | "content" | "category", string | null>
+  >({ title: null, content: null, category: null });
 
   const handleCheckboxChange = (checked: boolean) => {
     setNewTask((nt) => ({
@@ -56,14 +58,34 @@ function FindHelpPage() {
   const handleSubmit = useCallback(async () => {
     if (isSubmittingRef.current) return;
     const remainingSteps =
-      (user?.name ? 0 : 1) + (user?.metadata.contact ? 0 : 1);
+      (user?.name ? 0 : 1) +
+      (user?.metadata.phoneNumber || user?.metadata.email ? 0 : 1);
 
     if (remainingSteps > 0) {
       setProfileDialogOpen(true);
       return;
     }
+    if (!newTask.title) {
+      setErrors({
+        title: "Please tell us how we can help.",
+        content: null,
+        category: null,
+      });
+      return;
+    }
+
+    if (newTask.title.length < 20) {
+      setErrors({
+        title: "Title is too short",
+        content: null,
+        category: null,
+      });
+      return;
+    }
+
     if (!newTask.content) {
       setErrors({
+        title: null,
         content: "Please describe what you need help with.",
         category: null,
       });
@@ -72,6 +94,7 @@ function FindHelpPage() {
 
     if (newTask.content.length < 50) {
       setErrors({
+        title: null,
         content: "Please eloberate on your request a bit more.",
         category: null,
       });
@@ -80,6 +103,7 @@ function FindHelpPage() {
 
     if (!newTask.category) {
       setErrors({
+        title: null,
         content: null,
         category: "Please select a category for your request.",
       });
@@ -89,6 +113,7 @@ function FindHelpPage() {
     setIsSubmitting(true);
     try {
       await createEntity({
+        title: newTask.title,
         content: newTask.content,
         keywords: [newTask.category],
         metadata: {
@@ -109,16 +134,37 @@ function FindHelpPage() {
     <div className="w-full max-w-7xl grid gap-4">
       <h1 className="text-2xl font-bold mx-2 mb-4">How could we help?</h1>
 
-      {/* description */}
+      {/* title */}
       <div className="flex flex-col gap-3">
-        <Label htmlFor="task-content">
+        <Label htmlFor="task-title">
           <span className="text-red-500 mr-1">*</span>
           What Support Are You Looking For?
         </Label>
         <div>
+          <Input
+            id="task-title"
+            placeholder="Tell us what you need assistance with"
+            value={newTask.title || ""}
+            onChange={(e) =>
+              setNewTask((nt) => ({ ...nt, title: e.target.value }))
+            }
+          />
+          {errors["title"] && (
+            <p className="text-xs text-red-500 mt-1">{errors["title"]}</p>
+          )}
+        </div>
+      </div>
+
+      {/* description */}
+      <div className="flex flex-col gap-3">
+        <Label htmlFor="task-content">
+          <span className="text-red-500 mr-1">*</span>
+          Can you expand on that?
+        </Label>
+        <div>
           <Textarea
             id="task-content"
-            placeholder="Tell us what you need assistance with"
+            placeholder="Add more details to help us help you"
             value={newTask.content || ""}
             onChange={(e) =>
               setNewTask((nt) => ({ ...nt, content: e.target.value }))

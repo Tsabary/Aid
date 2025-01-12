@@ -6,13 +6,14 @@ import EditTask from "./EditTask";
 import ApplyToHelp from "./ApplyToHelp";
 import TaskHeader from "./TaskHeader";
 import TaskInProgress from "./TaskInProgress";
+import { Task } from "../../types/Task";
 
 function TaskCard({
   task: taskProp,
   handleOpenDrawer,
 }: {
   task: Task;
-  handleOpenDrawer: () => Promise<void>;
+  handleOpenDrawer: () => void;
 }) {
   const { user } = useUser();
   const [task, setTask] = useState<Task>(taskProp);
@@ -25,20 +26,21 @@ function TaskCard({
     <div className="shadow-md rounded-md relative">
       {/* Header */}
       <div
-        onClick={() => user && user.id === task.user.id && handleOpenDrawer()}
-        className={user && user.id === task.user.id ? "cursor-pointer" : ""}
+        onClick={handleOpenDrawer}
+        className={user && user.id === task.user?.id ? "cursor-pointer" : ""}
       >
         <TaskHeader task={task} />
 
         {/* Body */}
-        <div className="p-4">
-          <p className="font-semibold text-sm">{task.content}</p>
+        <div className="p-4 grid gap-2">
+          <p className="font-semibold text-sm">{task.title}</p>
+          <p className="text-sm text-gray-600">{task.content}</p>
         </div>
       </div>
 
       <div className="rounded-b-md overflow-hidden">
-        {user?.id === task.user.id ? (
-          <EditTask task={task} setTask={setTask} />
+        {user?.id === task.user?.id ? (
+          <EditTask />
         ) : task.metadata.status === "open" &&
           (requiredVoluneers === null || requiredVoluneers > 0) ? (
           <ApplyToHelp task={task} setTask={setTask} />

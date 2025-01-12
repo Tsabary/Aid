@@ -1,31 +1,25 @@
 import { useState } from "react";
+import { Entity, EntityProvider, useUser } from "replyke";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Measure from "react-measure";
 
 import TaskCard from "./TaskCard";
 import TaskDrawer from "./TaskDrawer";
-// import { generateTask } from "../../fixtures/taskFixture";
+import { Task } from "../../types/Task";
 
 function TasksFeed({ tasks }: { tasks: Task[] }) {
+  const { user } = useUser();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task>();
 
-  const handleOpenDrawer = async (task: Task) => {
-    try {
-      setSelectedTask(task);
-      setIsDrawerOpen(true);
-    } catch (err: unknown) {
-      console.log("Failed to open drawer: ", err);
-    }
-  };
-
   return (
     <>
-      <TaskDrawer
-        isDrawerOpen={isDrawerOpen}
-        setIsDrawerOpen={setIsDrawerOpen}
-        selectedTask={selectedTask}
-      />
+      <EntityProvider entity={selectedTask as unknown as Entity}>
+        <TaskDrawer
+          isDrawerOpen={isDrawerOpen}
+          setIsDrawerOpen={setIsDrawerOpen}
+        />
+      </EntityProvider>
       <ResponsiveMasonry
         columnsCountBreakPoints={{
           300: 1,
@@ -42,7 +36,12 @@ function TasksFeed({ tasks }: { tasks: Task[] }) {
                 <div ref={measureRef}>
                   <TaskCard
                     task={task}
-                    handleOpenDrawer={() => handleOpenDrawer(task)}
+                    handleOpenDrawer={() => {
+                      if (user && user.id === task.user.id) {
+                        setSelectedTask(task);
+                        setIsDrawerOpen(true);
+                      }
+                    }}
                     key={task.id}
                   />
                 </div>

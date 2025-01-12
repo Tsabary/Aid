@@ -1,4 +1,5 @@
 import { UserAvatar, useUser } from "replyke";
+import { Task } from "../../types/Task";
 
 function SingleTaskApplicant({
   task,

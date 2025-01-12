@@ -1,16 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Label } from "../ui/label";
 import { Checkbox } from "../ui/checkbox";
+import { Task } from "../../types/Task";
+import { useEntity } from "replyke";
 
-function EditTask({
-  task,
-  setTask,
-}: {
-  task: Task;
-  setTask: React.Dispatch<React.SetStateAction<Task>>;
-}) {
+function EditTask() {
+  const { entity } = useEntity();
   const [showEdit, setShowEdit] = useState(false);
-  const [editedTask, setEditedTask] = useState<Task>(task);
+  const [editedTask, setEditedTask] = useState<Task>();
 
   const handleSave = async () => {
     // try {
@@ -30,6 +27,11 @@ function EditTask({
     // }
   };
 
+  useEffect(() => {
+    console.log({ entity });
+    if (entity) setEditedTask(entity as Task);
+  }, [entity]);
+
   if (!showEdit) {
     return (
       <div
@@ -40,100 +42,49 @@ function EditTask({
       </div>
     );
   }
+
+  if (!entity) return null;
   return (
     <div className="border-t border-gray-200">
-      {/* <fieldset
-        className="flex max-w-md flex-col gap-2 p-2"
-        id={"radio" + task.id}
-      >
+      <div className="p-2 grid gap-2">
         <div className="flex items-center gap-2">
-          <Radio
-            id={`open-${task.id}`}
-            name="status"
-            value="open"
-            checked={editedTask.status === "open"}
-            onChange={(e) => {
-              if (!e.target.checked) return;
-              setEditedTask((et) => ({ ...et, status: "open" }));
+          <Checkbox
+            id={"status" + entity.id}
+            checked={editedTask?.metadata.isCompleted}
+            onCheckedChange={(isChecked) => {
+              setEditedTask((et) =>
+                et
+                  ? {
+                      ...et,
+                      metadata: {
+                        ...et.metadata,
+                        isCompleted: !!isChecked,
+                      },
+                    }
+                  : et
+              );
             }}
           />
-          <Label htmlFor={`open-${task.id}`}>פתוח</Label>
+          <Label htmlFor={"status" + entity.id} className="text-sm">
+            Task completed
+          </Label>
         </div>
-        <div className="flex items-center gap-2">
-          <Radio
-            id={`in_progress-${task.id}`}
-            name="status"
-            value="in_progress"
-            checked={editedTask.status === "in_progress"}
-            onChange={(e) => {
-              if (!e.target.checked) return;
-              setEditedTask((et) => ({ ...et, status: "in_progress" }));
-            }}
-          />
-          <Label htmlFor={`in_progress-${task.id}`}>בתהליך</Label>
-        </div>
-        <div className="flex items-center gap-2">
-          <Radio
-            id={`completed-${task.id}`}
-            name="status"
-            value="completed"
-            checked={editedTask.status === "completed"}
-            onChange={(e) => {
-              if (!e.target.checked) return;
-              setEditedTask((et) => ({ ...et, status: "completed" }));
-            }}
-          />
-          <Label htmlFor={`completed-${task.id}`}>הושלם</Label>
-        </div>
-      </fieldset> */}
 
-      <div className="flex items-center gap-2 p-2">
-        <Checkbox
-          id={"status" + task.id}
-          checked={editedTask.metadata.status === "completed"}
-          onCheckedChange={(isChecked) => {
-            let newStatus: TaskStatus = task.metadata.status;
+        {editedTask?.metadata.isCompleted && (
+          <p className="text-sm text-red-500 mr-2">
+            New volunteers can't apply to complted tasks
+          </p>
+        )}
 
-            if (isChecked) {
-              newStatus = "completed";
-            }
-
-            setEditedTask((et) => ({ ...et, status: newStatus }));
-          }}
-        />
-        <Label htmlFor={"status" + task.id} className="text-sm">
-          המשימה הושלמה
-        </Label>
-      </div>
-
-      {editedTask.metadata.status === "completed" && (
-        <p className="text-sm text-red-500 mr-2">
-          סימון המשימה כשהושלמה תסתיר אותה ממתנדבים חדשים
+        <p
+          onClick={() => setShowEdit(false)}
+          className="text-sm text-gray-500 text-center underline cursor-pointer"
+        >
+          Cancel
         </p>
-      )}
-
-      <div className="flex items-center gap-2 p-2">
-        <Checkbox
-          id={"urgent" + task.id}
-          checked={editedTask.metadata.urgent}
-          onCheckedChange={(isChecked) =>
-            setEditedTask((et) => ({ ...et, urgent: !!isChecked }))
-          }
-        />
-        <Label htmlFor={"urgent" + task.id} className="text-sm">
-          דחוף לרגע זה
-        </Label>
       </div>
-
-      <p
-        onClick={() => setShowEdit(false)}
-        className="text-sm text-gray-500 text-center underline cursor-pointer mb-2"
-      >
-        ביטול
-      </p>
-
       <div className="p-2 bg-blue-500 cursor-pointer" onClick={handleSave}>
-        <p className="text-center text-sm text-white">שמרו שינויים</p>
+        <p className="text-center text-sm text-white">Save Changes</p>
       </div>
     </div>
   );

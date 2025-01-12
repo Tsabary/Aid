@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useUser } from "replyke";
 import LabeledTextArea from "../ui/cusotm/LabledTextArea";
 import LabeledInput from "../ui/cusotm/LabledInput";
+import { Task } from "../../types/Task";
 
 function ApplyToHelp({
   task,

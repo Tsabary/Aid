@@ -2,6 +2,7 @@ import { useFeed } from "replyke";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { helpCategories } from "../constants/categories";
 import TasksFeed from "../components/TasksFeed";
+import { Task } from "../types/Task";
 
 function HomePage() {
   const { entities } = useFeed();
@@ -57,7 +58,7 @@ function HomePage() {
 
       {entities?.length ? (
         <TasksFeed
-          tasks={(entities as unknown as Task[]).filter(
+          tasks={(entities as Task[]).filter(
             (t) => t.metadata.status !== "completed"
           )}
         />

@@ -1,4 +1,5 @@
 import { useUser } from "replyke";
+import { Task } from "../../types/Task";
 
 function ReportTaskComplete({
   task,
