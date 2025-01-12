@@ -1,6 +1,7 @@
-import SingleTaskApplicant from "./SingleTaskApplicant";
+import { Task } from "../../../types/Task";
+import SingleTaskApplicant from "../SingleTaskApplicant";
 
-function TaskApplicants({
+function TaskDismissed({
   task,
   applications,
 }: {
@@ -12,7 +13,7 @@ function TaskApplicants({
   if (applications.length === 0) {
     return (
       <div className="w-full px-4">
-        <h1 className="font-semibold text-xl">אין מתנדבים חדשים</h1>
+        <h1 className="font-semibold text-xl">לא הגדרת שום מתנדב\ת כלא רלוונטי\ת</h1>
       </div>
     );
   }
@@ -23,7 +24,7 @@ function TaskApplicants({
         <SingleTaskApplicant
           task={task}
           application={application}
-          isApplicant
+          isDismissed
           key={application.applicant_id}
         />
       ))}
@@ -31,4 +32,4 @@ function TaskApplicants({
   );
 }
 
-export default TaskApplicants;
+export default TaskDismissed;

@@ -36,6 +36,7 @@ function FindHelpPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isSubmittingRef = useRef(false);
+
   const [errors, setErrors] = useState<
     Record<"title" | "content" | "category", string | null>
   >({ title: null, content: null, category: null });

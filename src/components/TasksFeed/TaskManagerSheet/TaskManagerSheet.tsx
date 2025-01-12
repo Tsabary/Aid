@@ -1,17 +1,21 @@
 import { useState, useEffect } from "react";
 import { useEntity, UserAvatar, useUser } from "replyke";
-import { User, UserCheck, UserMinus } from "lucide-react";
 
-import TaskDrawerHeader from "./TaskDrawerHeader";
 import TaskApplicants from "./TaskApplicants";
 import TaskAssigned from "./TaskAssigned";
 import TaskDismissed from "./TaskDismissed";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "../ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "../../ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // import TaskCommentSection from "./TaskCommentSection";
 
-function TaskDrawer({
+function TaskManagerSheet({
   isDrawerOpen,
   setIsDrawerOpen,
 }: {
@@ -21,7 +25,6 @@ function TaskDrawer({
   const { user } = useUser();
   const { entity: task } = useEntity();
   const [applicants, setApplicants] = useState<TaskApplication[]>([]);
-  const [currentTab, setCurrentTab] = useState(0);
 
   const offeredHelp: number =
     applicants.filter((app) => app.status === "new").length || 0;
@@ -119,62 +122,44 @@ function TaskDrawer({
 
         <Tabs defaultValue="offered" className="w-full">
           <TabsList className="w-full justify-between">
-            <TabsTrigger value="offered">{`Offered (${offeredHelp})`}</TabsTrigger>
-            <TabsTrigger value="assigned">{`Assigned (${
-              applicants.filter((app) => app.status === "assigned").length
-            })`}</TabsTrigger>
-            <TabsTrigger value="dismissed">{`Dismissed (${
-              applicants.filter((app) => app.status === "dismissed").length
-            })`}</TabsTrigger>
+            <TabsTrigger value="offered" className="text-xs">
+              Offered ({offeredHelp})
+            </TabsTrigger>
+            <TabsTrigger value="assigned" className="text-xs">
+              Assigned (
+              {applicants.filter((app) => app.status === "assigned").length})
+            </TabsTrigger>
+            <TabsTrigger value="dismissed" className="text-xs">
+              Dismissed (
+              {applicants.filter((app) => app.status === "dismissed").length})
+            </TabsTrigger>
           </TabsList>
-          <TabsContent value="account">
-            Make changes to your account here.
+          <TabsContent value="offered">
+            <TaskApplicants
+              applications={applicants.filter((app) => app.status === "new")}
+              task={task}
+            />
           </TabsContent>
-          <TabsContent value="password">Change your password here.</TabsContent>
+          <TabsContent value="assigned">
+            <TaskAssigned
+              applications={applicants.filter(
+                (app) => app.status === "assigned"
+              )}
+              task={task}
+            />
+          </TabsContent>
+          <TabsContent value="dismissed">
+            <TaskDismissed
+              applications={applicants.filter(
+                (app) => app.status === "dismissed"
+              )}
+              task={task}
+            />
+          </TabsContent>
         </Tabs>
       </SheetContent>
     </Sheet>
   );
-
-  // return (
-  //   <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-  //     <SheetContent className="flex flex-col p-0">
-  //       <TaskDrawerHeader task={task} />
-  //       <div className="p-2">
-  //         <Tabs
-  //           currentTab={currentTab}
-  //           setCurrentTab={setCurrentTab}
-  //           tabs={tabs}
-  //         />
-  //       </div>
-  //       <div className="p-4">
-  //         {currentTab === 0 && (
-  //           <TaskApplicants
-  //             applications={applicants.filter((app) => app.status === "new")}
-  //             task={task}
-  //           />
-  //         )}
-  //         {currentTab === 1 && (
-  //           <TaskAssigned
-  //             applications={applicants.filter(
-  //               (app) => app.status === "assigned"
-  //             )}
-  //             task={task}
-  //           />
-  //         )}
-  //         {currentTab === 2 && (
-  //           <TaskDismissed
-  //             applications={applicants.filter(
-  //               (app) => app.status === "dismissed"
-  //             )}
-  //             task={task}
-  //           />
-  //         )}
-  //       </div>
-  //       {/* <TaskCommentSection task={selectedTask} /> */}
-  //     </SheetContent>
-  //   </Sheet>
-  // );
 }
 
-export default TaskDrawer;
+export default TaskManagerSheet;

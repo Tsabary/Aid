@@ -1,34 +1,42 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Label } from "../ui/label";
 import { Checkbox } from "../ui/checkbox";
 import { Task } from "../../types/Task";
-import { useEntity } from "replyke";
+import { handleError, useEntity } from "replyke";
+import { LoaderCircle } from "lucide-react";
+import { cn } from "../../lib/utils";
 
 function EditTask() {
-  const { entity } = useEntity();
+  const { entity, updateEntity } = useEntity();
   const [showEdit, setShowEdit] = useState(false);
   const [editedTask, setEditedTask] = useState<Task>();
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const isSubmittingRef = useRef(false);
+
   const handleSave = async () => {
-    // try {
-    //   const taskRef = doc(firestore, getCollectionName("tasks"), task.id);
-    //   await updateDoc(taskRef, {
-    //     status: editedTask.status,
-    //     urgent: editedTask.urgent,
-    //   });
-    //   setShowEdit(false);
-    //   setTask(editedTask);
-    // } catch (err: unknown) {
-    //   let message = "Failed to update task";
-    //   if (err instanceof Error) {
-    //     message = "Failed to update task: " + err.message;
-    //   }
-    //   console.log(message);
-    // }
+    if (isSubmittingRef.current) return;
+
+    if (!editedTask) return;
+
+    isSubmittingRef.current = true;
+    setIsSubmitting(true);
+    try {
+      await updateEntity?.({
+        update: {
+          metadata: editedTask.metadata,
+        },
+      });
+      setShowEdit(false);
+    } catch (err: unknown) {
+      handleError(err, "Failed to update task");
+    } finally {
+      isSubmittingRef.current = false;
+      setIsSubmitting(false);
+    }
   };
 
   useEffect(() => {
-    console.log({ entity });
     if (entity) setEditedTask(entity as Task);
   }, [entity]);
 
@@ -77,15 +85,27 @@ function EditTask() {
         )}
 
         <p
-          onClick={() => setShowEdit(false)}
+          onClick={() => {
+            setEditedTask(entity as Task);
+            setShowEdit(false);
+          }}
           className="text-sm text-gray-500 text-center underline cursor-pointer"
         >
           Cancel
         </p>
       </div>
-      <div className="p-2 bg-blue-500 cursor-pointer" onClick={handleSave}>
+      <button
+        className={cn(
+          "p-2 bg-blue-500 cursor-pointer flex items-center justify-center w-full",
+          isSubmitting && "opacity-70"
+        )}
+        onClick={handleSave}
+        disabled={isSubmitting}
+      >
+        {isSubmitting && <LoaderCircle className="size-4 mr-2 animate-spin text-white" />}
+
         <p className="text-center text-sm text-white">Save Changes</p>
-      </div>
+      </button>
     </div>
   );
 }

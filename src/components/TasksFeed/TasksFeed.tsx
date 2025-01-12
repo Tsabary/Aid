@@ -4,7 +4,7 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Measure from "react-measure";
 
 import TaskCard from "./TaskCard";
-import TaskDrawer from "./TaskDrawer";
+import { TaskManagerSheet } from "./TaskManagerSheet";
 import { Task } from "../../types/Task";
 
 function TasksFeed({ tasks }: { tasks: Task[] }) {
@@ -15,7 +15,7 @@ function TasksFeed({ tasks }: { tasks: Task[] }) {
   return (
     <>
       <EntityProvider entity={selectedTask as unknown as Entity}>
-        <TaskDrawer
+        <TaskManagerSheet
           isDrawerOpen={isDrawerOpen}
           setIsDrawerOpen={setIsDrawerOpen}
         />
@@ -33,17 +33,18 @@ function TasksFeed({ tasks }: { tasks: Task[] }) {
           {tasks.map((task, i) => (
             <Measure key={i}>
               {({ measureRef }) => (
-                <div ref={measureRef}>
-                  <TaskCard
-                    task={task}
-                    handleOpenDrawer={() => {
-                      if (user && user.id === task.user.id) {
-                        setSelectedTask(task);
-                        setIsDrawerOpen(true);
-                      }
-                    }}
-                    key={task.id}
-                  />
+                <div ref={measureRef} key={task.id}>
+                  <EntityProvider entity={task}>
+                    <TaskCard
+                      task={task}
+                      handleOpenDrawer={() => {
+                        if (user && user.id === task.user?.id) {
+                          setSelectedTask(task);
+                          setIsDrawerOpen(true);
+                        }
+                      }}
+                    />
+                  </EntityProvider>
                 </div>
               )}
             </Measure>
