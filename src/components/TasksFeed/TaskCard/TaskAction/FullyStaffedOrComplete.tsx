@@ -1,4 +1,4 @@
-function TaskInProgress() {
+function TaskStaffed() {
   return (
     <div className="p-2 bg-gray-300">
       <p className="text-center text-sm text-gray-500">
@@ -8,4 +8,4 @@ function TaskInProgress() {
   );
 }
 
-export default TaskInProgress;
+export default TaskStaffed;

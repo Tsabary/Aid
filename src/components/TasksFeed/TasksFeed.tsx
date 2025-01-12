@@ -3,7 +3,7 @@ import { Entity, EntityProvider, useUser } from "replyke";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Measure from "react-measure";
 
-import TaskCard from "./TaskCard";
+import { TaskCard } from "./TaskCard";
 import { TaskManagerSheet } from "./TaskManagerSheet";
 import { Task } from "../../types/Task";
 

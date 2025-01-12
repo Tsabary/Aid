@@ -1,5 +1,5 @@
 import { UserAvatar } from "replyke";
-import { helpCategories } from "../../constants/categories";
+import { helpCategories } from "../../../constants/categories";
 import { User } from "lucide-react";
 import {
   Tooltip,

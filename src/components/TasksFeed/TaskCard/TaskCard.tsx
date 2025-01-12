@@ -2,7 +2,7 @@ import { useEntity, useUser } from "replyke";
 
 import TaskHeader from "./TaskHeader";
 import { TaskAction } from "./TaskAction";
-import { cn } from "../../lib/utils";
+import { cn } from "../../../lib/utils";
 
 function TaskCard({ handleOpenDrawer }: { handleOpenDrawer: () => void }) {
   const { user } = useUser();

@@ -1,7 +1,7 @@
 import { useEntity, useUser } from "replyke";
 import EditTask from "./EditTask";
 import ApplyToHelp from "./ApplyToHelp";
-import TaskInProgress from "./TaskInProgress";
+import FullyStaffedOrComplete from "./FullyStaffedOrComplete";
 
 function TaskAction() {
   const { user } = useUser();
@@ -19,7 +19,7 @@ function TaskAction() {
         (requiredVoluneers === null || requiredVoluneers > 0) ? (
         <ApplyToHelp />
       ) : (
-        <TaskInProgress />
+        <FullyStaffedOrComplete />
       )}
     </div>
   );
