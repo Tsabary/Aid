@@ -36,7 +36,6 @@ function TasksFeed({ tasks }: { tasks: Task[] }) {
                 <div ref={measureRef} key={task.id}>
                   <EntityProvider entity={task}>
                     <TaskCard
-                      task={task}
                       handleOpenDrawer={() => {
                         if (user && user.id === task.user?.id) {
                           setSelectedTask(task);

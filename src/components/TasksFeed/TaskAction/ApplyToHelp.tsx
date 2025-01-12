@@ -1,17 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useUser } from "replyke";
-import LabeledTextArea from "../ui/cusotm/LabledTextArea";
-import LabeledInput from "../ui/cusotm/LabledInput";
-import { Task } from "../../types/Task";
+import LabeledTextArea from "../../ui/cusotm/LabledTextArea";
+import LabeledInput from "../../ui/cusotm/LabledInput";
 
-function ApplyToHelp({
-  task,
-  setTask,
-}: {
-  task: Task;
-  setTask: React.Dispatch<React.SetStateAction<Task>>;
-}) {
+function ApplyToHelp() {
   const { user } = useUser();
   const [showApplication, setShowApplication] = useState(false);
   const [details, setDetails] = useState("");
