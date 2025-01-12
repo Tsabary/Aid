@@ -30,11 +30,11 @@ function ApplyToHelp({
         throw new Error("Already submitting");
       }
 
-      if (user.id === task.authorId) {
+      if (user.id === task.user.id) {
         throw new Error("User is the task author");
       }
 
-      if (task.applicants.includes(user.id)) {
+      if (task.metadata.applicants.includes(user.id)) {
         throw new Error("User has already applied");
       }
 
@@ -50,7 +50,7 @@ function ApplyToHelp({
 
       const newApplicant: TaskApplicationDraft = {
         task_id: task.id,
-        task_authorId: task.authorId,
+        task_authorId: task.user.id,
         applicant_id: user.id,
         applicant_name: name,
         applicant_phone_number: phoneNumber,
@@ -67,7 +67,7 @@ function ApplyToHelp({
       // await addDoc(taskRef, newApplicant);
       setTask((t) => ({
         ...t,
-        applicants: [...t.applicants, user.id],
+        applicants: [...t.metadata.applicants, user.id],
       }));
     } catch (err) {
       console.log("Failed to apply: ", err);
@@ -83,7 +83,7 @@ function ApplyToHelp({
     }
   }, [user]);
 
-  if (user && task.applicants.includes(user.id)) {
+  if (user && task.metadata.applicants.includes(user.id)) {
     return (
       <div className="p-2 bg-gray-300 cursor-pointer">
         <p className="text-center text-sm text-gray-500">תודה שהצעת עזרה</p>

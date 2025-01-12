@@ -35,7 +35,7 @@ function TasksFeed({ tasks }: { tasks: Task[] }) {
           500: 2,
           800: 3,
           1100: 4,
-          1300: 5,
+          // 1300: 5,
         }}
       >
         <Masonry gutter="24px">

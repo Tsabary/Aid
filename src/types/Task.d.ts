@@ -1,15 +1,20 @@
 type Task = {
   id: string;
-  authorId: string;
-  authorName: string | undefined;
-  authorAvatar: string | undefined;
-  description: string;
-  volunteersRequired: number;
+  user: {
+    id: string;
+    name?: string | undefined | null;
+    avatar?: string | undefined | null;
+  };
+  content: string;
+  keywords: TaskCategory[];
+  metadata: TaskMetadata;
+};
+
+type TaskMetadata = {
+  volunteersRequired: number | null;
   volunteersAssigned: number;
   applicants: string[];
   status: TaskStatus; // open | in_progress | completed
-  urgent: boolean;
-  category: TaskCategory;
-  startDate: Date;
-  endDate: Date;
+  // startDate: Date;
+  // endDate: Date;
 };

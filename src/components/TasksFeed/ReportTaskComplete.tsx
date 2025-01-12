@@ -1,9 +1,4 @@
-import { toast } from "react-toastify";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { getCollectionName } from "../../helpers/getCollectionName";
-
-import useAuth from "../../hooks/useAuth";
-import useFirebase from "../../hooks/useFirebase";
+import { useUser } from "replyke";
 
 function ReportTaskComplete({
   task,
@@ -12,28 +7,25 @@ function ReportTaskComplete({
   task: Task;
   showAuthModal: () => void;
 }) {
-  const { firestore } = useFirebase();
-  const { user } = useAuth();
+  const { user } = useUser();
   const handleReportHandled = async () => {
     try {
-      if (!firestore) {
-        throw new Error("Firestore wasn't initilaized properly");
-      }
-      if (!user) {
-        showAuthModal();
-        return;
-      }
-      const taskRef = doc(firestore, getCollectionName("tasks"), task.id);
-
-      await updateDoc(taskRef, {
-        reported_as_handled: arrayUnion(user.id),
-      });
-
-      toast.success("תודה על הדיווח!", {
-        position: "bottom-right",
-        pauseOnHover: false,
-        rtl: true,
-      });
+      // if (!firestore) {
+      //   throw new Error("Firestore wasn't initilaized properly");
+      // }
+      // if (!user) {
+      //   showAuthModal();
+      //   return;
+      // }
+      // const taskRef = doc(firestore, getCollectionName("tasks"), task.id);
+      // await updateDoc(taskRef, {
+      //   reported_as_handled: arrayUnion(user.id),
+      // });
+      // toast.success("תודה על הדיווח!", {
+      //   position: "bottom-right",
+      //   pauseOnHover: false,
+      //   rtl: true,
+      // });
     } catch (err: unknown) {
       console.log("Failed to report as handled");
     }

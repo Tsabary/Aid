@@ -5,7 +5,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import { useUser } from "replyke";
+import { FeedProvider, useUser } from "replyke";
 import SigninPage from "./pages/SigninPage";
 import SignupPage from "./pages/SignupPage";
 import Layout from "./components/shared/Layout";
@@ -18,7 +18,7 @@ function AppRoutes() {
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
+          <Route index element={<FeedProvider><HomePage /></FeedProvider>} />
           <Route path="/request-assistance" element={<RequestAssistancePage />} />
         </Route>
         <Route

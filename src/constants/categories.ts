@@ -8,7 +8,7 @@ export const helpCategories: Record<TaskCategory, string>  = {
   childcare: "Childcare",
   elderlyCare: "Elderly Care",
   volunteering: "Volunteering",
-  donations: "Donations (Money or Goods)",
+  donations: "Donations",
   searchAndRescue: "Search and Rescue",
   temporaryWork: "Temporary Work",
   counselingAndEmotionalSupport: "Counseling and Emotional Support",

@@ -1,16 +1,28 @@
 import { UserAvatar } from "replyke";
-import { statusDictionary } from "../../constants/statusDictionary";
 import { helpCategories } from "../../constants/categories";
+import { User } from "lucide-react";
 
 function TaskHeader({ task }: { task: Task }) {
+  const requiredVoluneers = task.metadata.volunteersRequired
+    ? task.metadata.volunteersRequired - (task.metadata.volunteersAssigned || 0)
+    : null;
+
   return (
-    <div className="p-2 bg-blue-50 rounded-t-md">
+    <div className="grid gap-2 p-2 bg-blue-50 rounded-t-md">
+      {/* Top */}
+      <div className="rounded-md px-2 py-0.5 bg-blue-200 text-xs text-gray-500 w-max">
+        {helpCategories[task.keywords[0]]}
+      </div>
+
       {/* First header line */}
       <div className="flex items-center">
-        <div className="flex flex-1 items-center">
-          <UserAvatar user={{ avatar: task.authorAvatar }} />
-          <p className="text-sm mx-3 font-semibold text-gray-700">
-            {task.authorName.split(" ")[0]}
+        <div className="flex flex-1 items-center gap-2">
+          <UserAvatar
+            size={24}
+            user={{ id: task.user.id, avatar: task.user.avatar }}
+          />
+          <p className="text-sm font-semibold text-gray-700">
+            {task.user.name?.split(" ")[0]}
           </p>
         </div>
         {/* <div className="rounded-md px-2 py-0.5 bg-gray-200">
@@ -21,36 +33,32 @@ function TaskHeader({ task }: { task: Task }) {
       </div>
 
       {/* Second header line */}
-      <div className="flex items-end mt-2">
-        <div className="flex-1 flex">
-          <div
-            className={[
-              "rounded-md px-2 py-0.5",
-              task.status === "open"
-                ? "bg-green-400"
-                : task.status === "in_progress"
-                ? "bg-yellow-300"
-                : "bg-blue-200",
-            ].join(" ")}
-          >
-            <p
-              className={[
-                "text-xs",
-                task.status === "open"
-                  ? "text-white"
-                  : task.status === "in_progress"
-                  ? "text-white"
-                  : "text-gray-500",
-              ].join(" ")}
-            >
-              {statusDictionary[task.status]}
-            </p>
-          </div>
-        </div>
-        <div className="rounded-md px-2 py-0.5 bg-blue-200">
-          <p className="text-xs text-gray-500">
-            {helpCategories[task.category]}
-          </p>
+      <div className="flex w-full justify-end items-start gap-2">
+        {/* <div
+          className={cn(
+            "rounded-md px-2 py-0.5 text-xs",
+            task.metadata.status === "open"
+              ? "text-white"
+              : task.metadata.status === "in_progress"
+              ? "text-white"
+              : "text-gray-500",
+            task.metadata.status === "open"
+              ? "bg-green-400"
+              : task.metadata.status === "in_progress"
+              ? "bg-yellow-300"
+              : "bg-blue-200"
+          )}
+        >
+          {statusDictionary[task.metadata.status]}
+        </div> */}
+
+        <div className="flex gap-1 items-center text-xs">
+          <User className="size-3" />
+          {requiredVoluneers === null
+            ? "∞"
+            : requiredVoluneers === 0
+            ? "✓"
+            : requiredVoluneers}
         </div>
       </div>
     </div>

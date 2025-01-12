@@ -1,13 +1,12 @@
-import { CommentSection } from "replyke";
-import useAuth from "../../hooks/useAuth";
+import { useUser } from "replyke";
 
 function TaskCommentSection({ task }: { task?: Task }) {
-  const { user } = useAuth();
+  const { user } = useUser();
   if (!task) return null;
   return (
     <div>
       <p className="text-3xl font-bold mt-8">תגובות</p>
-      {task && (
+      {/* {task && (
         <div dir="ltr" className="w-full mt-8">
           <CommentSection
             appKey="2ccnet2ar6ncapws3gp8idomy05yxa"
@@ -31,7 +30,7 @@ function TaskCommentSection({ task }: { task?: Task }) {
             }
           />
         </div>
-      )}
+      )} */}
     </div>
   );
 }

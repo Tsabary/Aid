@@ -90,9 +90,9 @@ function EditTask({
       <div className="flex items-center gap-2 p-2">
         <Checkbox
           id={"status" + task.id}
-          checked={editedTask.status === "completed"}
+          checked={editedTask.metadata.status === "completed"}
           onCheckedChange={(isChecked) => {
-            let newStatus: TaskStatus = task.status;
+            let newStatus: TaskStatus = task.metadata.status;
 
             if (isChecked) {
               newStatus = "completed";
@@ -106,7 +106,7 @@ function EditTask({
         </Label>
       </div>
 
-      {editedTask.status === "completed" && (
+      {editedTask.metadata.status === "completed" && (
         <p className="text-sm text-red-500 mr-2">
           סימון המשימה כשהושלמה תסתיר אותה ממתנדבים חדשים
         </p>
@@ -115,7 +115,7 @@ function EditTask({
       <div className="flex items-center gap-2 p-2">
         <Checkbox
           id={"urgent" + task.id}
-          checked={editedTask.urgent}
+          checked={editedTask.metadata.urgent}
           onCheckedChange={(isChecked) =>
             setEditedTask((et) => ({ ...et, urgent: !!isChecked }))
           }
