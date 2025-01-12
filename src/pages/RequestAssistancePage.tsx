@@ -58,7 +58,10 @@ function FindHelpPage() {
     const remainingSteps =
       (user?.name ? 0 : 1) + (user?.metadata.contact ? 0 : 1);
 
-    if (remainingSteps > 0) setProfileDialogOpen(true);
+    if (remainingSteps > 0) {
+      setProfileDialogOpen(true);
+      return;
+    }
     if (!newTask.content) {
       setErrors({
         content: "Please describe what you need help with.",

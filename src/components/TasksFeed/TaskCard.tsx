@@ -5,7 +5,6 @@ import EditTask from "./EditTask";
 
 import ApplyToHelp from "./ApplyToHelp";
 import TaskHeader from "./TaskHeader";
-import TaskBody from "./TaskBody";
 import TaskInProgress from "./TaskInProgress";
 
 function TaskCard({
@@ -18,8 +17,9 @@ function TaskCard({
   const { user } = useUser();
   const [task, setTask] = useState<Task>(taskProp);
 
-  const requiredVoluneers =
-    task.metadata.volunteersRequired - task.metadata.volunteersAssigned;
+  const requiredVoluneers = task.metadata.volunteersRequired
+    ? task.metadata.volunteersRequired - (task.metadata.volunteersAssigned || 0)
+    : null;
 
   return (
     <div className="shadow-md rounded-md relative">
@@ -31,13 +31,16 @@ function TaskCard({
         <TaskHeader task={task} />
 
         {/* Body */}
-        <TaskBody task={task} />
+        <div className="p-4">
+          <p className="font-semibold text-sm">{task.content}</p>
+        </div>
       </div>
 
       <div className="rounded-b-md overflow-hidden">
         {user?.id === task.user.id ? (
           <EditTask task={task} setTask={setTask} />
-        ) : task.metadata.status === "open" && requiredVoluneers > 0 ? (
+        ) : task.metadata.status === "open" &&
+          (requiredVoluneers === null || requiredVoluneers > 0) ? (
           <ApplyToHelp task={task} setTask={setTask} />
         ) : (
           <TaskInProgress />
