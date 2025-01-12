@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
 
 import { Header } from "../Header";
-import Footer from "../Footer";
+import Footer from "./Footer";
 import { useState } from "react";
-import UserProfileDialog from "../UserProfileDialog";
+import UserProfileDialog from "./UserProfileDialog";
 
 function Layout() {
   const [profileDialogOpen, setProfileDialogOpen] = useState(false);

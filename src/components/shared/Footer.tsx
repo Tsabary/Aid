@@ -3,15 +3,18 @@ function Footer() {
     <footer className="fixed bottom-0 px-4 py-2 bg-gray-100 w-full text-xs flex justify-between text-gray-500">
       <div>
         Open Source project by{" "}
-        <a href="" className="hover:underline">
+        <a href="https://x.com/yantsab" className="hover:underline">
           Tsabary
         </a>{" "}
         using{" "}
-        <a href="" className="hover:underline">
+        <a href="https://replyke.com" className="hover:underline">
           Replyke
         </a>
       </div>
-      <a href="" className="hover:underline">
+      <a
+        href="https://github.com/Tsabary/fires-help"
+        className="hover:underline"
+      >
         GitHub
       </a>
     </footer>

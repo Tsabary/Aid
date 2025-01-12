@@ -6,18 +6,18 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
 import { useEffect, useRef, useState } from "react";
-import { toast } from "../hooks/use-toast";
+import { toast } from "../../hooks/use-toast";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
-import { Button } from "./ui/button";
+} from "../ui/select";
+import { Button } from "../ui/button";
 import { handleError, useUser } from "replyke";
 import { isEmail } from "validator";
 import { LoaderCircle } from "lucide-react";
