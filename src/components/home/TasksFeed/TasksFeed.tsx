@@ -40,8 +40,15 @@ function TasksFeed({
     setIsDiscussionSheetOpen(true);
   };
 
+  if (!location)
+    return (
+      <p className="text-2xl font-bold mt-4 text-center">
+        To view requests - set your location
+      </p>
+    );
+
   if ((tasks || []).length === 0)
-    return <p className="text-2xl font-bold mt-4">Please expand your search</p>;
+    return <p className="text-2xl font-bold mt-4 text-center">Please expand your search</p>;
 
   return (
     <>
