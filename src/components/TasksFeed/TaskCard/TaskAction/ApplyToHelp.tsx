@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { LoaderCircle } from "lucide-react";
 import { handleError, useCreateComment, useEntity, useUser } from "replyke";
 import { Textarea } from "../../../ui/textarea";
 import { Task } from "../../../../types/Task";
-import { LoaderCircle } from "lucide-react";
 
 function ApplyToHelp() {
   const { user } = useUser();
@@ -20,13 +20,10 @@ function ApplyToHelp() {
   });
 
   const [showApplication, setShowApplication] = useState(false);
-  const [details, setDetails] = useState("");
-  const [name, setName] = useState<string>("");
+  const [commentContent, setCommentContent] = useState("");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isSubmittingRef = useRef(false);
-
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   async function handleApply() {
     if (isSubmittingRef.current) return;
@@ -46,6 +43,14 @@ function ApplyToHelp() {
     try {
       isSubmittingRef.current = true;
       setIsSubmitting(true);
+
+      let content = "I'd like to help.";
+
+      if (commentContent) content += `\n\n${commentContent}`;
+      await createComment({ entityId: task.id, content, mentions: [] });
+
+      setShowApplication(false);
+      setCommentContent("");
 
       // const newApplicant: TaskApplicationDraft = {
       //   task_id: task.id,
@@ -71,13 +76,6 @@ function ApplyToHelp() {
       setIsSubmitting(false);
     }
   }
-
-  useEffect(() => {
-    if (!user) return;
-    if (user.name) {
-      setName(user.name);
-    }
-  }, [user]);
 
   if (!user) {
     return (
@@ -112,8 +110,8 @@ function ApplyToHelp() {
     <div className="border-t border-gray-200">
       <div className="p-2 flex flex-col gap-2">
         <Textarea
-          value={details}
-          onChange={(e) => setDetails(e.target.value)}
+          value={commentContent}
+          onChange={(e) => setCommentContent(e.target.value)}
           placeholder="Add a comment.."
           rows={3}
         />
@@ -125,7 +123,7 @@ function ApplyToHelp() {
         </p>
       </div>
       <button
-        className="p-2 bg-green-400 cursor-pointer w-full text-center text-sm text-white flex items-center"
+        className="p-2 bg-green-400 cursor-pointer w-full text-center text-sm text-white flex items-center justify-center"
         onClick={handleApply}
         disabled={isSubmitting}
       >

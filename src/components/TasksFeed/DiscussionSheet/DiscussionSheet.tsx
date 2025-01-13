@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import {
   SocialStyleCallbacks,
@@ -28,7 +26,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Task } from "../../../types/Task";
 import { toast } from "../../../hooks/use-toast";
-// import { toast } from "../../../hooks/use-toast";
+import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
 export function DiscussionSheet({
   isSheetOpen,
@@ -38,6 +36,7 @@ export function DiscussionSheet({
   setIsSheetOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [searchParams] = useSearchParams();
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   const { entity } = useEntity();
   const task = entity as Task;
@@ -105,28 +104,9 @@ export function DiscussionSheet({
     </div>
   );
 
-  //   const mobileSection = (
-  //     <Drawer open={open} onOpenChange={setOpen}>
-  //       <DrawerContent className="h-5/6 flex md:hidden flex-col">
-  //         <CommentSectionProvider>
-  //           {socialHeader}
-  //           <div className="flex-1 flex flex-col overflow-hidden">
-  //             <ScrollArea className="flex-1 px-4">
-  //               <CommentsFeed />
-  //               <div className="w-full h-4" />
-  //             </ScrollArea>
-  //             <div className="border-t">
-  //               <NewCommentForm />
-  //             </div>
-  //           </div>
-  //         </CommentSectionProvider>
-  //       </DrawerContent>
-  //     </Drawer>
-  //   );
-
   const mobileSection = (
     <Drawer open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-      <DrawerContent className="h-screen overflow-hidden flex md:hidden flex-col p-0 pt-6 bg-white z-50">
+      <DrawerContent className="h-screen overflow-hidden flex flex-col p-0 pt-6 bg-white">
         <DrawerHeader className="px-6 grid gap-2">
           <div className="grid gap-1">
             <div className="flex items-center">
@@ -135,7 +115,9 @@ export function DiscussionSheet({
               />
               <p className="mx-3 font-medium text-sm">{task?.user?.name}</p>
             </div>
-            <DrawerTitle className="text-base text-start">{task?.title}</DrawerTitle>
+            <DrawerTitle className="text-base text-start">
+              {task?.title}
+            </DrawerTitle>
             <DrawerDescription className="text-sm">
               {task?.content}
             </DrawerDescription>
@@ -172,7 +154,7 @@ export function DiscussionSheet({
 
   const desktopSection = (
     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-      <SheetContent className="h-screen overflow-hidden hidden md:flex flex-col p-0 pt-6 bg-white z-50">
+      <SheetContent className="h-screen overflow-hidden flex flex-col p-0 pt-6 bg-white">
         <SheetHeader className="px-6 grid gap-2">
           <div className="grid gap-1">
             <div className="flex items-center">
@@ -218,8 +200,7 @@ export function DiscussionSheet({
 
   return (
     <div className="relative">
-      {desktopSection}
-      {mobileSection}
+      {isDesktop ? desktopSection : mobileSection}
     </div>
   );
 }
