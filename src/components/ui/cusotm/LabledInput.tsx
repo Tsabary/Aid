@@ -8,7 +8,6 @@ function LabeledInput({
   notes,
   error,
   showErrorMessage,
-  dir = "rtl",
 }: {
   label: string;
   labelBg?: string;
@@ -18,7 +17,6 @@ function LabeledInput({
   width?: string;
   notes?: string;
   error?: string | null;
-  dir?: "rtl" | "ltr";
   showErrorMessage?: boolean;
 }) {
   const random = Math.random();
@@ -28,7 +26,6 @@ function LabeledInput({
         <input
           type={type}
           id={label + random}
-          dir={dir}
           className={[
             width,
             error

@@ -16,11 +16,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 // import TaskCommentSection from "./TaskCommentSection";
 
 function TaskManagerSheet({
-  isDrawerOpen,
-  setIsDrawerOpen,
+  isSheetOpen,
+  setIsSheetOpen,
 }: {
-  isDrawerOpen: boolean;
-  setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isSheetOpen: boolean;
+  setIsSheetOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const { user } = useUser();
   const { entity: task } = useEntity();
@@ -28,10 +28,6 @@ function TaskManagerSheet({
 
   const offeredHelp: number =
     applicants.filter((app) => app.status === "new").length || 0;
-
-  useEffect(() => {
-    console.log({ task });
-  }, [task]);
 
   // Fetch applicants
   // useEffect(() => {
@@ -107,7 +103,7 @@ function TaskManagerSheet({
   //   return () => unsub && unsub();
   // }, [user, selectedTask, firestore]);
   return (
-    <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+    <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
       <SheetContent className="flex flex-col">
         <SheetHeader>
           <div className="flex items-center">

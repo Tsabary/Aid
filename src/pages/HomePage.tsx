@@ -3,9 +3,29 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { helpCategories } from "../constants/categories";
 import TasksFeed from "../components/TasksFeed";
 import { Task } from "../types/Task";
+import { LocationSelectorDialog } from "../components/shared/LocationSelectorDialog";
+import { useEffect, useState } from "react";
+import { MapPin, Radius } from "lucide-react";
+import { Button } from "../components/ui/button";
+import { RadiusSelectorDialog } from "../components/shared/RadiusSelectorDialog";
+
+const MILES_TO_METERS = 1609.34;
+const KM_TO_METERS = 1000;
 
 function HomePage() {
-  const { entities } = useFeed();
+  const { entities, setLocationFilters } = useFeed();
+  const [isLocationDialogOpen, setIsLocationDialogOpen] = useState(false);
+  const [isRadiusDialogOpen, setIsRadiusDialogOpen] = useState(false);
+  const [location, setLocation] = useState<{
+    name: string;
+    coordinates: { lat: number; lng: number };
+  } | null>(null);
+
+  const [radius, setRadius] = useState(10000);
+  const [isKm, setIsKm] = useState(true);
+  const displayedRadius = isKm
+    ? radius / KM_TO_METERS // Convert to kilometers for display
+    : radius / MILES_TO_METERS; // Convert to miles for display
 
   // const handleScroll = useCallback(async () => {
   //   try {
@@ -34,38 +54,94 @@ function HomePage() {
   //   return () => window.removeEventListener("scroll", handleScroll);
   // }, [tasks, lastVisible, handleScroll]);
 
+  // Save location locally whenever it changes
+  useEffect(() => {
+    if (location) {
+      localStorage.setItem("location", JSON.stringify(location));
+      setLocationFilters?.({
+        latitude: location.coordinates.lat,
+        longitude: location.coordinates.lng,
+        radius: 10000,
+      });
+    }
+  }, [location]);
+
+  // Load location on launch
+  useEffect(() => {
+    const savedLocation = localStorage.getItem("location");
+    if (savedLocation) {
+      setLocation(JSON.parse(savedLocation));
+    } else {
+      setIsLocationDialogOpen(true); // Open dialog if no saved location
+    }
+  }, []);
+
   return (
-    <div className="w-full max-w-7xl grid gap-4">
-      <h1 className="text-2xl font-bold mx-2 mb-4">How could you help?</h1>
+    <>
+      <LocationSelectorDialog
+        isDialogOpen={isLocationDialogOpen}
+        setIsDialogOpen={setIsLocationDialogOpen}
+        setLocation={setLocation}
+      />
+      <RadiusSelectorDialog
+        isDialogOpen={isRadiusDialogOpen}
+        setIsDialogOpen={setIsRadiusDialogOpen}
+        isKm={isKm}
+        setIsKm={setIsKm}
+        radius={radius}
+        setRadius={setRadius}
+      />
+      <div className="w-full max-w-7xl grid gap-4">
+        <h1 className="text-2xl font-bold mx-2 mb-4">How could you help?</h1>
 
-      <ToggleGroup
-        type="multiple"
-        className="w-full flex flex-wrap justify-start gap-1.5"
-      >
-        {Object.keys(helpCategories).map((k) => (
-          <ToggleGroupItem
+        <ToggleGroup
+          type="multiple"
+          className="w-full flex flex-wrap justify-start gap-1.5"
+        >
+          {Object.keys(helpCategories).map((k) => (
+            <ToggleGroupItem
+              variant="outline"
+              className="hover:bg-blue-50 text-xs"
+              value={k}
+              size="xs"
+              id={k}
+              key={k}
+            >
+              {helpCategories[k as TaskCategory]}
+            </ToggleGroupItem>
+          ))}
+        </ToggleGroup>
+
+        <div className="flex gap-4">
+          <Button
             variant="outline"
-            className="hover:bg-blue-50 text-xs"
-            value={k}
-            size="xs"
-            id={k}
-            key={k}
+            onClick={() => setIsLocationDialogOpen(true)}
+            className="gap-2 w-max text-xs text-gray-500 h-7 px-2 min-w-7"
           >
-            {helpCategories[k as TaskCategory]}
-          </ToggleGroupItem>
-        ))}
-      </ToggleGroup>
+            <MapPin className="size-4" />
+            {location?.name}
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => setIsRadiusDialogOpen(true)}
+            className="gap-2 w-max text-xs text-gray-500 h-7 px-2 min-w-7"
+          >
+            <Radius className="size-4" />
+            {Math.round(displayedRadius)} {isKm ? "km" : "miles"}
+          </Button>
+        </div>
 
-      {entities?.length ? (
-        <TasksFeed
-          tasks={(entities as Task[]).filter(
-            (t) => t.metadata.status !== "completed"
-          )}
-        />
-      ) : (
-        <p className="text-2xl font-bold mt-4">Please expand your search</p>
-      )}
-    </div>
+        {entities?.length ? (
+          <TasksFeed
+            tasks={(entities as Task[]).filter(
+              (t) => t.metadata.status !== "completed"
+            )}
+          />
+        ) : (
+          <p className="text-2xl font-bold mt-4">Please expand your search</p>
+        )}
+      </div>
+    </>
   );
 }
 

@@ -1,17 +1,23 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useEntity, useUser } from "replyke";
-import LabeledTextArea from "../../../ui/cusotm/LabledTextArea";
-import LabeledInput from "../../../ui/cusotm/LabledInput";
+import { useCreateComment, useEntity, useUser } from "replyke";
+import { Textarea } from "../../../ui/textarea";
 
 function ApplyToHelp() {
   const { user } = useUser();
   const { entity: task } = useEntity();
+  const createComment = useCreateComment({
+    loginRequiredCallback: () => {
+      // We're not passing anything because createComment is only called after we've verified there is a logged in user
+    },
+    commentTooShortCallback: () => {
+      // We're not passing anything because we add content to the comment ourselves anyway
+    },
+  });
 
   const [showApplication, setShowApplication] = useState(false);
   const [details, setDetails] = useState("");
   const [name, setName] = useState<string>("");
-  const [phoneNumber, setPhoneNumber] = useState<string>("+972");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -22,15 +28,11 @@ function ApplyToHelp() {
         throw new Error("No user authenticated");
       }
 
-      if (isSubmitting) {
-        throw new Error("Already submitting");
-      }
-
       if (user.id === task.user.id) {
         throw new Error("User is the task author");
       }
 
-      if (task.metadata.applicants.includes(user.id)) {
+      if (task.metadata.applicants?.includes(user.id)) {
         throw new Error("User has already applied");
       }
 
@@ -38,10 +40,7 @@ function ApplyToHelp() {
         setErrors({ name: "בבקשה הזינו שם" });
         throw new Error("Please add your name");
       }
-      if (!phoneNumber || phoneNumber.length < 10) {
-        setErrors({ phoneNumber: "בבקשה הזינו מספר טלפון תקין" });
-        throw new Error("Please add your phone number");
-      }
+
       setIsSubmitting(true);
 
       const newApplicant: TaskApplicationDraft = {
@@ -79,70 +78,57 @@ function ApplyToHelp() {
     }
   }, [user]);
 
-  if (user && task.metadata.applicants.includes(user.id)) {
+  if (!user) {
     return (
-      <div className="p-2 bg-gray-300 cursor-pointer">
-        <p className="text-center text-sm text-gray-500">תודה שהצעת עזרה</p>
+      <Link to="/sign-in">
+        <button className="p-2 bg-green-400 cursor-pointer w-full text-center text-sm text-white">
+          I can help
+        </button>
+      </Link>
+    );
+  }
+
+  if (task?.metadata.applicants?.includes(user.id)) {
+    return (
+      <div className="p-2 bg-gray-300 text-center text-sm text-gray-500">
+        Applied
       </div>
     );
   }
 
   if (!showApplication) {
     return (
-      <div
-        className="p-2 bg-green-400 cursor-pointer"
+      <button
+        className="p-2 bg-green-400 cursor-pointer w-full text-center text-sm text-white"
         onClick={() => setShowApplication(true)}
       >
-        <p className="text-center text-sm text-white">הציעו לעזור</p>
-      </div>
+        I can help
+      </button>
     );
   }
 
   return (
     <div className="border-t border-gray-200">
-      <div className="p-2 flex flex-col space-y-2">
-        <LabeledInput
-          label="שם (פרטי מספיק)"
-          value={name}
-          onChange={setName}
-          error={errors["name"]}
-        />
-        <LabeledInput
-          label="טלפון נייד"
-          value={phoneNumber}
-          dir="ltr"
-          onChange={(phone_number) => {
-            if (phone_number.startsWith("+972")) {
-              // Extract the part after +972 and check if it's numeric
-              const restOfValue = phone_number.slice(4);
-              if (/^\d*$/.test(restOfValue) || restOfValue === "") {
-                setPhoneNumber(phone_number);
-              }
-            }
-          }}
-          error={errors["phoneNumber"]}
-        />
-
-        <LabeledTextArea
+      <div className="p-2 flex flex-col gap-2">
+        <Textarea
           value={details}
-          onChange={setDetails}
-          label="פרטים נוספים"
+          onChange={(e) => setDetails(e.target.value)}
+          placeholder="Add a comment.."
           rows={3}
         />
         <p
           onClick={() => setShowApplication(false)}
           className="text-sm text-gray-500 text-center underline cursor-pointer"
         >
-          ביטול
+          Cancel
         </p>
       </div>
-      {user ? (
-        <div className="p-2 bg-green-400 cursor-pointer" onClick={handleApply}>
-          <p className="text-center text-sm text-white">שלחו הצעת סיוע</p>
-        </div>
-      ) : (
-        <Link to="/sign-in" />
-      )}
+      <button
+        className="p-2 bg-green-400 cursor-pointer w-full text-center text-sm text-white"
+        onClick={handleApply}
+      >
+        Submit my offer
+      </button>
     </div>
   );
 }
