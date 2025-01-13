@@ -1,10 +1,10 @@
+import { useAuth, useUser } from "replyke";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { useAuth, useUser } from "replyke";
 
 function WebDropdown() {
   const { user } = useUser();

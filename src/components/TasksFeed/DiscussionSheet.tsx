@@ -24,9 +24,9 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Task } from "../../../types/Task";
-import { toast } from "../../../hooks/use-toast";
-import { useMediaQuery } from "../../../hooks/useMediaQuery";
+import { Task } from "../../types/Task";
+import { toast } from "../../hooks/use-toast";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 export function DiscussionSheet({
   isSheetOpen,

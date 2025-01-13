@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { handleError, useEntity } from "replyke";
+import { LoaderCircle } from "lucide-react";
 import { Label } from "../../../ui/label";
 import { Checkbox } from "../../../ui/checkbox";
 import { Task } from "../../../../types/Task";
-import { handleError, useEntity } from "replyke";
-import { LoaderCircle } from "lucide-react";
 import { cn } from "../../../../lib/utils";
 
 function EditTask() {

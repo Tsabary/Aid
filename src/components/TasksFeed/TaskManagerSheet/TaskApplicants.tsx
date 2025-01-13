@@ -1,14 +1,14 @@
 import { useEntity } from "replyke";
-import SingleTaskApplicant from "../SingleTaskApplicant";
+import SingleTaskApplicant from "./SingleTaskApplicant";
 import { Task } from "../../../types/Task";
 
-function TaskApplicants({ applications }: { applications: TaskApplication[] }) {
+function TaskApplicants() {
   const { entity } = useEntity();
   const task = entity as Task;
 
   if (!task) return null;
 
-  if (applications.length === 0) {
+  if (task.metadata.applicants.length === 0) {
     return (
       <div className="w-full px-4 grid justify-center items-center h-full font-medium text-xl text-center text-gray-300">
         No new volunteers
@@ -18,13 +18,8 @@ function TaskApplicants({ applications }: { applications: TaskApplication[] }) {
 
   return (
     <div className="w-full p-4">
-      {applications.map((application) => (
-        <SingleTaskApplicant
-          task={task}
-          application={application}
-          isApplicant
-          key={application.applicant_id}
-        />
+      {task.metadata.applicants.map((applicantId) => (
+        <SingleTaskApplicant applicantId={applicantId} key={applicantId} />
       ))}
     </div>
   );

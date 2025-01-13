@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-
 import { UserAvatar, useUser } from "replyke";
 
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";

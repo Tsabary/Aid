@@ -1,6 +1,6 @@
 import { useEntity, UserAvatar } from "replyke";
-import { helpCategories } from "../../../constants/categories";
 import { MapPin, User } from "lucide-react";
+import { helpCategories } from "../../../constants/categories";
 import {
   Tooltip,
   TooltipContent,

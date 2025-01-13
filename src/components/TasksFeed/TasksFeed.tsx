@@ -6,7 +6,7 @@ import Measure from "react-measure";
 import { TaskCard } from "./TaskCard";
 import { TaskManagerSheet } from "./TaskManagerSheet";
 import { Task } from "../../types/Task";
-import DiscussionSheet from "./DiscussionSheet/DiscussionSheet";
+import DiscussionSheet from "./DiscussionSheet";
 
 function TasksFeed({ tasks, isKm }: { tasks: Task[]; isKm: boolean }) {
   const { user } = useUser();
