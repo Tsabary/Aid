@@ -2,8 +2,8 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { LoaderCircle } from "lucide-react";
 import { handleError, useCreateComment, useEntity, useUser } from "replyke";
-import { Textarea } from "../../../ui/textarea";
-import { Task } from "../../../../types/Task";
+import { Textarea } from "../../../../ui/textarea";
+import { Task } from "../../../../../types/Task";
 
 function ApplyToHelp({
   handleOpenDiscussionSheet,

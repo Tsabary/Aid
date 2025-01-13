@@ -2,9 +2,9 @@ import { useEntity, useUser } from "replyke";
 
 import TaskHeader from "./TaskHeader";
 import { TaskAction } from "./TaskAction";
-import { cn } from "../../../lib/utils";
-import { Button } from "../../ui/button";
-import { Task } from "../../../types/Task";
+import { cn } from "../../../../lib/utils";
+import { Button } from "../../../ui/button";
+import { Task } from "../../../../types/Task";
 
 function TaskCard({
   isKm,

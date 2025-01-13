@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 
 function UseMyCurrentLocation({
   setLocation,
+  closeDialog,
 }: {
   setLocation: React.Dispatch<
     React.SetStateAction<{
@@ -10,6 +11,7 @@ function UseMyCurrentLocation({
       coordinates: { lat: number; lng: number };
     } | null>
   >;
+  closeDialog: () => void;
 }) {
   const handleUseCurrentLocation = () => {
     if (!navigator.geolocation) {
@@ -34,6 +36,7 @@ function UseMyCurrentLocation({
                 },
               };
               setLocation(location);
+              closeDialog();
             } else {
               console.error("Error fetching location name:", status);
               alert("Unable to fetch location name. Using default name.");

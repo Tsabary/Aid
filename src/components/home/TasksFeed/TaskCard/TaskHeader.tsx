@@ -1,13 +1,13 @@
 import { useEntity, UserAvatar } from "replyke";
 import { MapPin, User } from "lucide-react";
-import { helpCategories } from "../../../constants/categories";
+import { helpCategories } from "../../../../constants/categories";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Task } from "../../../types/Task";
+import { Task } from "../../../../types/Task";
 
 function TaskHeader({ isKm }: { isKm: boolean }) {
   const { entity } = useEntity();

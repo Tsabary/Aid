@@ -1,24 +1,18 @@
-import { handleError, useFeed } from "replyke";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { helpCategories } from "../constants/categories";
-import TasksFeed from "../components/TasksFeed";
-import { Task } from "../types/Task";
-import { LocationSelectorDialog } from "../components/shared/LocationSelectorDialog";
 import { useCallback, useEffect, useState } from "react";
-import { MapPin, Radius } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { RadiusSelectorDialog } from "../components/shared/RadiusSelectorDialog";
+import { handleError, useFeed } from "replyke";
 
-const MILES_TO_METERS = 1609.34;
-const KM_TO_METERS = 1000;
+import TasksFeed from "../components/home/TasksFeed";
+import { LocationSelectorDialog } from "../components/shared/LocationSelectorDialog";
+import { RadiusSelectorDialog } from "../components/shared/RadiusSelectorDialog";
+import CategoryFilters from "../components/home/CategoryFilters";
+import LocationFilters from "../components/home/LocationFilters";
 
 function HomePage() {
-  const { entities, setLocationFilters, updateKeywordsFilters, kickstart } =
-    useFeed();
+  const { setLocationFilters, updateKeywordsFilters, kickstart } = useFeed();
   const [isLocationDialogOpen, setIsLocationDialogOpen] = useState(false);
   const [isRadiusDialogOpen, setIsRadiusDialogOpen] = useState(false);
 
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<TaskCategory[]>([]);
   const [location, setLocation] = useState<{
     name: string;
     coordinates: { lat: number; lng: number };
@@ -26,9 +20,6 @@ function HomePage() {
 
   const [radius, setRadius] = useState(10000);
   const [isKm, setIsKm] = useState(true);
-  const displayedRadius = isKm
-    ? radius / KM_TO_METERS // Convert to kilometers for display
-    : radius / MILES_TO_METERS; // Convert to miles for display
 
   const handleScroll = useCallback(async () => {
     try {
@@ -90,55 +81,20 @@ function HomePage() {
       <div className="w-full max-w-7xl grid gap-4">
         <h1 className="text-2xl font-bold mx-2 mb-4">How could you help?</h1>
 
-        <ToggleGroup
-          type="multiple"
-          value={categories}
-          onValueChange={setCategories}
-          className="w-full flex flex-wrap justify-start gap-1.5"
-        >
-          {Object.keys(helpCategories).map((k) => (
-            <ToggleGroupItem
-              variant="outline"
-              className="hover:bg-blue-50 text-xs"
-              value={k}
-              size="xs"
-              id={k}
-              key={k}
-            >
-              {helpCategories[k as TaskCategory]}
-            </ToggleGroupItem>
-          ))}
-        </ToggleGroup>
+        <CategoryFilters
+          categories={categories}
+          setCategories={setCategories}
+        />
 
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            onClick={() => setIsLocationDialogOpen(true)}
-            className="gap-2 w-max text-xs text-gray-500 h-7 px-2 min-w-7"
-          >
-            <MapPin className="size-4" />
-            {location?.name}
-          </Button>
-          <Button
-            variant="outline"
-            onClick={() => setIsRadiusDialogOpen(true)}
-            className="gap-2 w-max text-xs text-gray-500 h-7 px-2 min-w-7"
-          >
-            <Radius className="size-4" />
-            {Math.round(displayedRadius)} {isKm ? "km" : "miles"}
-          </Button>
-        </div>
+        <LocationFilters
+          setIsLocationDialogOpen={setIsLocationDialogOpen}
+          setIsRadiusDialogOpen={setIsRadiusDialogOpen}
+          isKm={isKm}
+          radius={radius}
+          location={location}
+        />
 
-        {entities?.length ? (
-          <TasksFeed
-            tasks={(entities as Task[]).filter(
-              (t) => t.metadata.status !== "completed"
-            )}
-            isKm={isKm}
-          />
-        ) : (
-          <p className="text-2xl font-bold mt-4">Please expand your search</p>
-        )}
+        <TasksFeed isKm={isKm} />
       </div>
     </>
   );

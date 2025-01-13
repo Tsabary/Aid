@@ -71,7 +71,10 @@ function LocationSelectorContent({
 
   return (
     <div className="p-4 space-y-1" ref={dropdownRef}>
-      <UseMyCurrentLocation setLocation={setLocation} />
+      <UseMyCurrentLocation
+        setLocation={setLocation}
+        closeDialog={closeDialog}
+      />
       <div className="flex items-center gap-3">
         <div className="flex-1 border-t" />
         <div className="text-center text-gray-400 text-sm">or</div>

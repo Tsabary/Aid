@@ -1,15 +1,17 @@
 import { useState } from "react";
-import { Entity, EntityProvider, useUser } from "replyke";
+import { Entity, EntityProvider, useFeed, useUser } from "replyke";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Measure from "react-measure";
 
 import { TaskCard } from "./TaskCard";
-import { TaskManagerSheet } from "./TaskManagerSheet";
-import { Task } from "../../types/Task";
-import DiscussionSheet from "./DiscussionSheet";
+import { TaskManagerSheet } from "../TaskManagerSheet";
+import { Task } from "../../../types/Task";
+import DiscussionSheet from "../DiscussionSheet";
 
-function TasksFeed({ tasks, isKm }: { tasks: Task[]; isKm: boolean }) {
+function TasksFeed({ isKm }: { isKm: boolean }) {
   const { user } = useUser();
+  const { entities } = useFeed();
+  const tasks = entities as Task[];
   const [isManagerSheetOpen, setIsManagerSheetOpen] = useState(false);
   const [isDiscussionSheetOpen, setIsDiscussionSheetOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task>();
@@ -25,6 +27,9 @@ function TasksFeed({ tasks, isKm }: { tasks: Task[]; isKm: boolean }) {
     setSelectedTask(task);
     setIsDiscussionSheetOpen(true);
   };
+
+  if ((tasks || []).length === 0)
+    return <p className="text-2xl font-bold mt-4">Please expand your search</p>;
 
   return (
     <>

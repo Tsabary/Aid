@@ -2,7 +2,7 @@ import { useEntity, useUser } from "replyke";
 import EditTask from "./EditTask";
 import ApplyToHelp from "./ApplyToHelp";
 import FullyStaffedOrComplete from "./FullyStaffedOrComplete";
-import { Task } from "../../../../types/Task";
+import { Task } from "../../../../../types/Task";
 
 function TaskAction({
   handleOpenDiscussionSheet,
