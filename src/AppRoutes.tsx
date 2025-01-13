@@ -11,6 +11,7 @@ import SignupPage from "./pages/SignupPage";
 import Layout from "./components/shared/Layout";
 import RequestAssistancePage from "./pages/RequestAssistancePage";
 import WelcomePage from "./pages/WelcomePage";
+import MyRequests from "./pages/MyRequests";
 
 function AppRoutes() {
   const { user } = useUser();
@@ -25,6 +26,18 @@ function AppRoutes() {
               <FeedProvider idle>
                 <HomePage />
               </FeedProvider>
+            }
+          />
+          <Route
+            path="/my-requests"
+            element={
+              user ? (
+                <FeedProvider userId={user.id}>
+                  <MyRequests />
+                </FeedProvider>
+              ) : (
+                <Navigate to="/" />
+              )
             }
           />
           <Route

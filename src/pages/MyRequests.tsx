@@ -1,25 +1,12 @@
-import { useState } from "react";
 import { Entity, EntityProvider, useFeed } from "replyke";
+import DiscussionSheet from "../components/home/DiscussionSheet";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { Task } from "../types/Task";
+import { useState } from "react";
 import Measure from "react-measure";
+import { TaskCard } from "../components/home/TasksFeed/TaskCard";
 
-import { TaskCard } from "./TaskCard";
-import { Task } from "../../../types/Task";
-import DiscussionSheet from "../DiscussionSheet";
-
-function TasksFeed({
-  isKm,
-  location,
-}: {
-  isKm: boolean;
-  location: {
-    name: string;
-    coordinates: {
-      lat: number;
-      lng: number;
-    };
-  } | null;
-}) {
+function MyRequests() {
   const { entities } = useFeed();
   const tasks = entities as Task[];
   const [isDiscussionSheetOpen, setIsDiscussionSheetOpen] = useState(false);
@@ -30,22 +17,10 @@ function TasksFeed({
     setIsDiscussionSheetOpen(true);
   };
 
-  if (!location)
-    return (
-      <p className="text-2xl font-bold mt-4 text-center">
-        To view requests - set your location
-      </p>
-    );
-
-  if ((tasks || []).length === 0)
-    return (
-      <p className="text-3xl font-medium m-10 text-center text-gray-300">
-        Please expand your search
-      </p>
-    );
-
   return (
-    <>
+    <div className="w-full max-w-7xl grid gap-4">
+      <h1 className="text-2xl font-bold mx-2 mb-4">My requests</h1>
+
       <EntityProvider entity={selectedTask as unknown as Entity}>
         <DiscussionSheet
           isSheetOpen={isDiscussionSheetOpen}
@@ -69,8 +44,8 @@ function TasksFeed({
                 <div ref={measureRef} key={task.id}>
                   <EntityProvider entity={task}>
                     <TaskCard
-                      isKm={isKm}
-                      location={location}
+                      isKm={true}
+                      location={null}
                       handleOpenDiscussionSheet={(passedTask) =>
                         handleOpenDiscussionSheet(passedTask)
                       }
@@ -82,8 +57,8 @@ function TasksFeed({
           ))}
         </Masonry>
       </ResponsiveMasonry>
-    </>
+    </div>
   );
 }
 
-export default TasksFeed;
+export default MyRequests;
