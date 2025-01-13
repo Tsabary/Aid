@@ -13,9 +13,12 @@ const MILES_TO_METERS = 1609.34;
 const KM_TO_METERS = 1000;
 
 function HomePage() {
-  const { entities, setLocationFilters } = useFeed();
+  const { entities, setLocationFilters, updateKeywordsFilters, kickstart } =
+    useFeed();
   const [isLocationDialogOpen, setIsLocationDialogOpen] = useState(false);
   const [isRadiusDialogOpen, setIsRadiusDialogOpen] = useState(false);
+
+  const [categories, setCategories] = useState<string[]>([]);
   const [location, setLocation] = useState<{
     name: string;
     coordinates: { lat: number; lng: number };
@@ -63,6 +66,7 @@ function HomePage() {
         longitude: location.coordinates.lng,
         radius: 10000,
       });
+      kickstart?.();
     }
   }, [location]);
 
@@ -75,6 +79,10 @@ function HomePage() {
       setIsLocationDialogOpen(true); // Open dialog if no saved location
     }
   }, []);
+
+  useEffect(() => {
+    updateKeywordsFilters?.("add", "includes", categories);
+  }, [categories]);
 
   return (
     <>
@@ -96,6 +104,8 @@ function HomePage() {
 
         <ToggleGroup
           type="multiple"
+          value={categories}
+          onValueChange={setCategories}
           className="w-full flex flex-wrap justify-start gap-1.5"
         >
           {Object.keys(helpCategories).map((k) => (
@@ -112,7 +122,7 @@ function HomePage() {
           ))}
         </ToggleGroup>
 
-        <div className="flex gap-4">
+        <div className="flex gap-2">
           <Button
             variant="outline"
             onClick={() => setIsLocationDialogOpen(true)}

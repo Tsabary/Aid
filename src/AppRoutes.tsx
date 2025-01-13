@@ -18,8 +18,18 @@ function AppRoutes() {
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<FeedProvider><HomePage /></FeedProvider>} />
-          <Route path="/request-assistance" element={<RequestAssistancePage />} />
+          <Route
+            index
+            element={
+              <FeedProvider idle>
+                <HomePage />
+              </FeedProvider>
+            }
+          />
+          <Route
+            path="/request-assistance"
+            element={<RequestAssistancePage />}
+          />
         </Route>
         <Route
           path="/sign-in"
