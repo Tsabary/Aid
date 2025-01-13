@@ -8,7 +8,19 @@ import { TaskManagerSheet } from "../TaskManagerSheet";
 import { Task } from "../../../types/Task";
 import DiscussionSheet from "../DiscussionSheet";
 
-function TasksFeed({ isKm }: { isKm: boolean }) {
+function TasksFeed({
+  isKm,
+  location,
+}: {
+  isKm: boolean;
+  location: {
+    name: string;
+    coordinates: {
+      lat: number;
+      lng: number;
+    };
+  } | null;
+}) {
   const { user } = useUser();
   const { entities } = useFeed();
   const tasks = entities as Task[];
@@ -61,6 +73,7 @@ function TasksFeed({ isKm }: { isKm: boolean }) {
                   <EntityProvider entity={task}>
                     <TaskCard
                       isKm={isKm}
+                      location={location}
                       handleOpenManagerSheet={() =>
                         handleOpenManagerSheet(task)
                       }

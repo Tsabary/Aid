@@ -8,10 +8,18 @@ import { Task } from "../../../../types/Task";
 
 function TaskCard({
   isKm,
+  location,
   handleOpenManagerSheet,
   handleOpenDiscussionSheet,
 }: {
   isKm: boolean;
+  location: {
+    name: string;
+    coordinates: {
+      lat: number;
+      lng: number;
+    };
+  } | null;
   handleOpenManagerSheet: () => void;
   handleOpenDiscussionSheet: () => void;
 }) {
@@ -27,7 +35,7 @@ function TaskCard({
         user && user.id === task?.user?.id ? "cursor-pointer" : ""
       )}
     >
-      <TaskHeader isKm={isKm} />
+      <TaskHeader isKm={isKm} location={location} />
 
       {/* Body */}
       <div className="p-4 grid gap-2">

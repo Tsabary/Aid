@@ -94,7 +94,7 @@ function HomePage() {
           location={location}
         />
 
-        <TasksFeed isKm={isKm} />
+        <TasksFeed isKm={isKm} location={location} />
       </div>
     </>
   );

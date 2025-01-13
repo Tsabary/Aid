@@ -5,9 +5,10 @@ import {
   UserAvatar,
   useSocialComments,
   useSocialStyle,
+  useUser,
 } from "replyke";
 import { useSearchParams } from "react-router-dom";
-import { Mail, Phone } from "lucide-react";
+import { EyeOff, Mail, Phone } from "lucide-react";
 
 import {
   Sheet,
@@ -35,6 +36,7 @@ export function DiscussionSheet({
   isSheetOpen: boolean;
   setIsSheetOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const { user } = useUser();
   const [searchParams] = useSearchParams();
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -104,22 +106,30 @@ export function DiscussionSheet({
     </div>
   );
 
-  const contactDetails = (
-    <div className="flex justify-between gap-4">
-      {task?.user?.metadata.email ? (
-        <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600">
-          <Mail className="size-3" />
-          <div className="mb-0.5">{task.user.metadata.email}</div>
+  const contactDetails =
+    user && task.metadata.applicants.includes(user.id) ? (
+      <div className="flex justify-between gap-4">
+        {task?.user?.metadata.email ? (
+          <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600">
+            <Mail className="size-3" />
+            <div className="mb-0.5">{task.user.metadata.email}</div>
+          </div>
+        ) : null}
+        {task?.user?.metadata.phoneNumber ? (
+          <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600">
+            <Phone className="size-2.5" />
+            <div className="mb-0.5">{task.user.metadata.phoneNumber}</div>
+          </div>
+        ) : null}
+      </div>
+    ) : (
+      <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600 w-max">
+        <EyeOff className="size-2.5" />
+        <div className="mb-0.5">
+          Contact details are visibile for volunteers only
         </div>
-      ) : null}
-      {task?.user?.metadata.phoneNumber ? (
-        <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600">
-          <Phone className="size-2.5" />
-          <div className="mb-0.5">{task.user.metadata.phoneNumber}</div>
-        </div>
-      ) : null}
-    </div>
-  );
+      </div>
+    );
 
   const mobileSection = (
     <Drawer open={isSheetOpen} onOpenChange={setIsSheetOpen}>

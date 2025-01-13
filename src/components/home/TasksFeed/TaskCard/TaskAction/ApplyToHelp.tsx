@@ -48,9 +48,10 @@ function ApplyToHelp({
       isSubmittingRef.current = true;
       setIsSubmitting(true);
 
-      let content = "I'd like to help.";
+      let content = "I'd like to help";
 
-      if (commentContent) content += ` - ${commentContent}`;
+      content += commentContent ? ` - ${commentContent}` : ".";
+
       await createComment({ entityId: task.id, content, mentions: [] });
 
       setShowApplication(false);

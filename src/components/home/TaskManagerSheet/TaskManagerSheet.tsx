@@ -25,18 +25,20 @@ function TaskManagerSheet({
   const { entity } = useEntity();
   const task = entity as Task;
 
+  if (!task) return null;
+
   return (
     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
       <SheetContent className="flex flex-col">
         <SheetHeader>
           <div className="flex items-center">
             <UserAvatar
-              user={{ id: task?.user?.id, avatar: task?.user?.avatar }}
+              user={{ id: task.user?.id, avatar: task.user?.avatar }}
             />
-            <p className="mx-3 font-medium text-sm">{task?.user?.name}</p>
+            <p className="mx-3 font-medium text-sm">{task.user?.name}</p>
           </div>
-          <SheetTitle>{task?.title}</SheetTitle>
-          <SheetDescription>{task?.content}</SheetDescription>
+          <SheetTitle>{task.title}</SheetTitle>
+          <SheetDescription>{task.content}</SheetDescription>
         </SheetHeader>
 
         <Tabs defaultValue="offered" className="w-full flex-1 flex flex-col">
