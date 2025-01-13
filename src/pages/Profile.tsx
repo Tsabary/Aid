@@ -22,7 +22,6 @@ function Profile() {
 
   useEffect(() => {
     if (!profileId) return;
-    console.log({ profileId });
     setUserId?.(profileId);
     setLocationFilters?.(null);
     kickstart?.();
