@@ -3,7 +3,7 @@ import RadiusSelectorContent from "./RadiusSelectorContent";
 import { useMediaQuery } from "../../../hooks/useMediaQuery";
 import { Dialog, DialogContent } from "../../ui/dialog";
 
-const LocationSelectorDialog = ({
+const RadiusSelectorDialog = ({
   isDialogOpen,
   setIsDialogOpen,
   isKm,
@@ -55,4 +55,4 @@ const LocationSelectorDialog = ({
   );
 };
 
-export default LocationSelectorDialog;
+export default RadiusSelectorDialog;
