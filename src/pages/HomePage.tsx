@@ -146,6 +146,7 @@ function HomePage() {
             tasks={(entities as Task[]).filter(
               (t) => t.metadata.status !== "completed"
             )}
+            isKm={isKm}
           />
         ) : (
           <p className="text-2xl font-bold mt-4">Please expand your search</p>

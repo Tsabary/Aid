@@ -27,7 +27,10 @@ const LocationSelectorDialog = ({
     return (
       <Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
         <DialogContent>
-          <LocationSelectorContent setLocation={setLocation} />
+          <LocationSelectorContent
+            setLocation={setLocation}
+            closeDialog={() => setIsDialogOpen(false)}
+          />
         </DialogContent>
       </Dialog>
     );
@@ -36,7 +39,10 @@ const LocationSelectorDialog = ({
   return (
     <Drawer open={isDialogOpen} onOpenChange={handleOpenChange}>
       <DrawerContent>
-        <LocationSelectorContent setLocation={setLocation} />
+        <LocationSelectorContent
+          setLocation={setLocation}
+          closeDialog={() => setIsDialogOpen(false)}
+        />
       </DrawerContent>
     </Drawer>
   );

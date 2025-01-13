@@ -9,6 +9,7 @@ function SearchLocationInput({
   isSelecting,
   setResults,
   setLocation,
+  closeDialog,
 }: {
   searchQuery: string;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
@@ -26,6 +27,7 @@ function SearchLocationInput({
       };
     } | null>
   >;
+  closeDialog: () => void;
 }) {
   const handleSelectAddress = (placeId: string, description: string) => {
     const geocoder = new google.maps.Geocoder();
@@ -44,6 +46,7 @@ function SearchLocationInput({
         isSelecting.current = true;
         setResults([]);
         setIsDropdownOpen(false);
+        closeDialog();
       } else {
         console.error("Error fetching location details:", status);
       }

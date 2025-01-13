@@ -4,16 +4,20 @@ import TaskHeader from "./TaskHeader";
 import { TaskAction } from "./TaskAction";
 import { cn } from "../../../lib/utils";
 import { Button } from "../../ui/button";
+import { Task } from "../../../types/Task";
 
 function TaskCard({
+  isKm,
   handleOpenManagerSheet,
   handleOpenDiscussionSheet,
 }: {
+  isKm: boolean;
   handleOpenManagerSheet: () => void;
   handleOpenDiscussionSheet: () => void;
 }) {
   const { user } = useUser();
-  const { entity: task } = useEntity();
+  const { entity } = useEntity();
+  const task = entity as Task;
 
   return (
     <div
@@ -23,7 +27,7 @@ function TaskCard({
         user && user.id === task?.user?.id ? "cursor-pointer" : ""
       )}
     >
-      <TaskHeader task={task} />
+      <TaskHeader isKm={isKm} />
 
       {/* Body */}
       <div className="p-4 grid gap-2">

@@ -96,6 +96,16 @@ function FindHelpPage() {
       return;
     }
 
+    if (!location) {
+      setErrors({
+        title: null,
+        content: null,
+        category: null,
+        location: "Please select a location for your request",
+      });
+      return;
+    }
+
     if (!newTask.category) {
       setErrors({
         title: null,
@@ -106,15 +116,6 @@ function FindHelpPage() {
       return;
     }
 
-    if (location) {
-      setErrors({
-        title: null,
-        content: null,
-        category: null,
-        location: "Please select a location for your request",
-      });
-      return;
-    }
     isSubmittingRef.current = true;
     setIsSubmitting(true);
     try {
@@ -122,6 +123,10 @@ function FindHelpPage() {
         title: newTask.title,
         content: newTask.content,
         keywords: [newTask.category],
+        location: {
+          latitude: location.coordinates.lat,
+          longitude: location.coordinates.lng,
+        },
         metadata: {
           volunteersRequired: newTask.volunteersRequired,
           volunteersAssigned: 0,
@@ -134,7 +139,7 @@ function FindHelpPage() {
       isSubmittingRef.current = false;
       setIsSubmitting(false);
     }
-  }, [createEntity, newTask, navigate, user, setProfileDialogOpen]);
+  }, [createEntity, newTask, location, navigate, user, setProfileDialogOpen]);
 
   return (
     <>
@@ -170,6 +175,7 @@ function FindHelpPage() {
         <FormLocation
           location={location}
           setIsLocationDialogOpen={setIsLocationDialogOpen}
+          errors={errors}
         />
         <Separator />
 

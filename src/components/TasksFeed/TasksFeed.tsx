@@ -8,7 +8,7 @@ import { TaskManagerSheet } from "./TaskManagerSheet";
 import { Task } from "../../types/Task";
 import DiscussionSheet from "./DiscussionSheet/DiscussionSheet";
 
-function TasksFeed({ tasks }: { tasks: Task[] }) {
+function TasksFeed({ tasks, isKm }: { tasks: Task[]; isKm: boolean }) {
   const { user } = useUser();
   const [isManagerSheetOpen, setIsManagerSheetOpen] = useState(false);
   const [isDiscussionSheetOpen, setIsDiscussionSheetOpen] = useState(false);
@@ -55,6 +55,7 @@ function TasksFeed({ tasks }: { tasks: Task[] }) {
                 <div ref={measureRef} key={task.id}>
                   <EntityProvider entity={task}>
                     <TaskCard
+                      isKm={isKm}
                       handleOpenManagerSheet={() =>
                         handleOpenManagerSheet(task)
                       }

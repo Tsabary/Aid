@@ -6,10 +6,10 @@ function Footer() {
         <a href="https://x.com/yantsab" className="hover:underline">
           Tsabary
         </a>{" "}
-        using{" "}
+        {/* using{" "}
         <a href="https://replyke.com" className="hover:underline">
           Replyke
-        </a>
+        </a> */}
       </div>
       <a
         href="https://github.com/Tsabary/fires-help"

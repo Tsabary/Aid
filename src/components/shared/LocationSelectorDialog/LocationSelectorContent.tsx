@@ -6,6 +6,7 @@ import SearchLocationInput from "./SearchLocationInput";
 // Part 1: Content Component
 function LocationSelectorContent({
   setLocation,
+  closeDialog,
 }: {
   setLocation: React.Dispatch<
     React.SetStateAction<{
@@ -13,6 +14,7 @@ function LocationSelectorContent({
       coordinates: { lat: number; lng: number };
     } | null>
   >;
+  closeDialog: () => void;
 }) {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [results, setResults] = useState<PlacePrediction[]>([]);
@@ -84,6 +86,7 @@ function LocationSelectorContent({
         isSelecting={isSelecting}
         setResults={setResults}
         setLocation={setLocation}
+        closeDialog={closeDialog}
       />
     </div>
   );

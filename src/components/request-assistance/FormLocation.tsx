@@ -5,6 +5,7 @@ import { Label } from "../ui/label";
 function FormLocation({
   location,
   setIsLocationDialogOpen,
+  errors,
 }: {
   location: {
     name: string;
@@ -14,6 +15,7 @@ function FormLocation({
     };
   } | null;
   setIsLocationDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  errors: Record<"title" | "content" | "category" | "location", string | null>;
 }) {
   return (
     <div className="flex flex-col gap-3">
@@ -30,6 +32,9 @@ function FormLocation({
         <MapPin className="size-4" />
         {location ? location.name : "Choose location"}
       </Button>
+      {errors["location"] && (
+        <p className="text-xs text-red-500 mt-1">{errors["location"]}</p>
+      )}
     </div>
   );
 }
