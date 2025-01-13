@@ -81,7 +81,7 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-    updateKeywordsFilters?.("add", "includes", categories);
+    updateKeywordsFilters?.("replace", "includes", categories);
   }, [categories]);
 
   return (
