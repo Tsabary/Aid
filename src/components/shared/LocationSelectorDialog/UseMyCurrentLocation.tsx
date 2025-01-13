@@ -20,15 +20,30 @@ function UseMyCurrentLocation({
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        const location = {
-          name: "Current Location",
-          coordinates: {
-            lat: latitude,
-            lng: longitude,
-          },
-        };
+        const geocoder = new google.maps.Geocoder();
 
-        setLocation(location);
+        geocoder.geocode(
+          { location: { lat: latitude, lng: longitude } },
+          (results, status) => {
+            if (status === google.maps.GeocoderStatus.OK && results?.[0]) {
+              const location = {
+                name: results[0].formatted_address,
+                coordinates: {
+                  lat: latitude,
+                  lng: longitude,
+                },
+              };
+              setLocation(location);
+            } else {
+              console.error("Error fetching location name:", status);
+              alert("Unable to fetch location name. Using default name.");
+              setLocation({
+                name: "Current Location",
+                coordinates: { lat: latitude, lng: longitude },
+              });
+            }
+          }
+        );
       },
       (error) => {
         console.error("Error fetching current location:", error);

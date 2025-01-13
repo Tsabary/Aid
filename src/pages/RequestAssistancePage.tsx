@@ -43,8 +43,8 @@ function FindHelpPage() {
   const isSubmittingRef = useRef(false);
 
   const [errors, setErrors] = useState<
-    Record<"title" | "content" | "category", string | null>
-  >({ title: null, content: null, category: null });
+    Record<"title" | "content" | "category" | "location", string | null>
+  >({ title: null, content: null, category: null, location: null });
 
   const handleSubmit = useCallback(async () => {
     if (isSubmittingRef.current) return;
@@ -61,6 +61,7 @@ function FindHelpPage() {
         title: "Please tell us how we can help.",
         content: null,
         category: null,
+        location: null,
       });
       return;
     }
@@ -70,6 +71,7 @@ function FindHelpPage() {
         title: "Title is too short",
         content: null,
         category: null,
+        location: null,
       });
       return;
     }
@@ -79,6 +81,7 @@ function FindHelpPage() {
         title: null,
         content: "Please describe what you need help with.",
         category: null,
+        location: null,
       });
       return;
     }
@@ -88,6 +91,7 @@ function FindHelpPage() {
         title: null,
         content: "Please eloberate on your request a bit more.",
         category: null,
+        location: null,
       });
       return;
     }
@@ -97,6 +101,17 @@ function FindHelpPage() {
         title: null,
         content: null,
         category: "Please select a category for your request.",
+        location: null,
+      });
+      return;
+    }
+
+    if (location) {
+      setErrors({
+        title: null,
+        content: null,
+        category: null,
+        location: "Please select a location for your request",
       });
       return;
     }

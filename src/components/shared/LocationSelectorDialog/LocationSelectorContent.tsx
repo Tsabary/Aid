@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDebounce } from "../../../hooks/useDebounce";
-import UseMyCurrentLocation from "../UseMyCurrentLocation";
-import SearchLocationInput from "../SearchLocationInput";
+import UseMyCurrentLocation from "./UseMyCurrentLocation";
+import SearchLocationInput from "./SearchLocationInput";
 
 // Part 1: Content Component
 function LocationSelectorContent({
