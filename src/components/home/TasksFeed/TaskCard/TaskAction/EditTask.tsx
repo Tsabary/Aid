@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { handleError, useEntity } from "replyke";
+import { useNavigate } from "react-router-dom";
+import { handleError, useEntity, useUser } from "replyke";
 import { LoaderCircle } from "lucide-react";
 import { Label } from "../../../../ui/label";
 import { Checkbox } from "../../../../ui/checkbox";
@@ -7,6 +8,8 @@ import { Task } from "../../../../../types/Task";
 import { cn } from "../../../../../lib/utils";
 
 function EditTask() {
+  const navigate = useNavigate();
+  const { user } = useUser();
   const { entity, updateEntity } = useEntity();
   const [showEdit, setShowEdit] = useState(false);
   const [editedTask, setEditedTask] = useState<Task>();
@@ -42,12 +45,15 @@ function EditTask() {
 
   if (!showEdit) {
     return (
-      <div
-        className="p-2 bg-blue-500 cursor-pointer"
-        onClick={() => setShowEdit(true)}
+      <button
+        className="p-2 bg-blue-500 cursor-pointer text-center text-sm text-white w-full"
+        onClick={(e) => {
+          e.stopPropagation();
+          setShowEdit(true);
+        }}
       >
-        <p className="text-center text-sm text-white">Edit your request</p>
-      </div>
+        Edit your request
+      </button>
     );
   }
 
@@ -80,11 +86,11 @@ function EditTask() {
 
         {editedTask?.metadata.isCompleted && (
           <p className="text-sm text-red-500 mr-2">
-            New volunteers can't apply to complted tasks
+            New volunteers can't apply to completed tasks
           </p>
         )}
 
-        <p
+        <button
           onClick={() => {
             setEditedTask(entity as Task);
             setShowEdit(false);
@@ -92,19 +98,20 @@ function EditTask() {
           className="text-sm text-gray-500 text-center underline cursor-pointer"
         >
           Cancel
-        </p>
+        </button>
       </div>
       <button
         className={cn(
-          "p-2 bg-blue-500 cursor-pointer flex items-center justify-center w-full",
+          "p-2 bg-blue-500 cursor-pointer flex items-center justify-center w-full text-center text-sm text-white",
           isSubmitting && "opacity-70"
         )}
         onClick={handleSave}
         disabled={isSubmitting}
       >
-        {isSubmitting && <LoaderCircle className="size-4 mr-2 animate-spin text-white" />}
-
-        <p className="text-center text-sm text-white">Save Changes</p>
+        {isSubmitting && (
+          <LoaderCircle className="size-4 mr-2 animate-spin text-white" />
+        )}
+        Save Changes
       </button>
     </div>
   );

@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 // import githubIcon from "../assets/github.svg";
 import AuthenticationFrame from "../components/authentication/AuthenticationFrame";
 import GoogleSignInButton from "../components/authentication/GoogleSignInButton";
+import { cn } from "../lib/utils";
 
 function SignupPage() {
   const { signUpWithEmailAndPassword } = useAuth();
@@ -104,7 +105,7 @@ function SignupPage() {
               <Button
                 onClick={handleSignup}
                 type="submit"
-                className="w-full"
+                className={cn("w-full", isSubmitting && "opacity-70")}
                 disabled={isSubmitting}
               >
                 {isSubmitting && (

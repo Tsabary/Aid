@@ -1,15 +1,13 @@
-import { useEntity, useUser } from "replyke";
+import { useEntity } from "replyke";
 
 import TaskHeader from "./TaskHeader";
 import { TaskAction } from "./TaskAction";
-import { cn } from "../../../../lib/utils";
 import { Button } from "../../../ui/button";
 import { Task } from "../../../../types/Task";
 
 function TaskCard({
   isKm,
   location,
-  handleOpenManagerSheet,
   handleOpenDiscussionSheet,
 }: {
   isKm: boolean;
@@ -20,21 +18,13 @@ function TaskCard({
       lng: number;
     };
   } | null;
-  handleOpenManagerSheet: () => void;
-  handleOpenDiscussionSheet: () => void;
+  handleOpenDiscussionSheet: (passedTask: Task) => void;
 }) {
-  const { user } = useUser();
   const { entity } = useEntity();
   const task = entity as Task;
 
   return (
-    <div
-      onClick={handleOpenManagerSheet}
-      className={cn(
-        "shadow-md rounded-md relative",
-        user && user.id === task?.user?.id ? "cursor-pointer" : ""
-      )}
-    >
+    <div className="shadow-md rounded-md relative">
       <TaskHeader isKm={isKm} location={location} />
 
       {/* Body */}
@@ -46,7 +36,7 @@ function TaskCard({
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            handleOpenDiscussionSheet();
+            handleOpenDiscussionSheet(task);
           }}
           className="text-xs text-start w-max h-7 mt-2"
         >

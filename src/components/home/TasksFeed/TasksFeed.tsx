@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { Entity, EntityProvider, useFeed, useUser } from "replyke";
+import { Entity, EntityProvider, useFeed } from "replyke";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Measure from "react-measure";
 
 import { TaskCard } from "./TaskCard";
-import { TaskManagerSheet } from "../TaskManagerSheet";
 import { Task } from "../../../types/Task";
 import DiscussionSheet from "../DiscussionSheet";
 
@@ -21,19 +20,10 @@ function TasksFeed({
     };
   } | null;
 }) {
-  const { user } = useUser();
   const { entities } = useFeed();
   const tasks = entities as Task[];
-  const [isManagerSheetOpen, setIsManagerSheetOpen] = useState(false);
   const [isDiscussionSheetOpen, setIsDiscussionSheetOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task>();
-
-  const handleOpenManagerSheet = (task: Task) => {
-    if (user && user.id === task.user?.id) {
-      setSelectedTask(task);
-      setIsManagerSheetOpen(true);
-    }
-  };
 
   const handleOpenDiscussionSheet = (task: Task) => {
     setSelectedTask(task);
@@ -48,15 +38,15 @@ function TasksFeed({
     );
 
   if ((tasks || []).length === 0)
-    return <p className="text-2xl font-bold mt-4 text-center">Please expand your search</p>;
+    return (
+      <p className="text-2xl font-bold mt-4 text-center">
+        Please expand your search
+      </p>
+    );
 
   return (
     <>
       <EntityProvider entity={selectedTask as unknown as Entity}>
-        <TaskManagerSheet
-          isSheetOpen={isManagerSheetOpen}
-          setIsSheetOpen={setIsManagerSheetOpen}
-        />
         <DiscussionSheet
           isSheetOpen={isDiscussionSheetOpen}
           setIsSheetOpen={setIsDiscussionSheetOpen}
@@ -81,11 +71,8 @@ function TasksFeed({
                     <TaskCard
                       isKm={isKm}
                       location={location}
-                      handleOpenManagerSheet={() =>
-                        handleOpenManagerSheet(task)
-                      }
-                      handleOpenDiscussionSheet={() =>
-                        handleOpenDiscussionSheet(task)
+                      handleOpenDiscussionSheet={(passedTask) =>
+                        handleOpenDiscussionSheet(passedTask)
                       }
                     />
                   </EntityProvider>

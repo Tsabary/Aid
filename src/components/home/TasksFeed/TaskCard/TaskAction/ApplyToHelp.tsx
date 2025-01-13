@@ -4,11 +4,12 @@ import { LoaderCircle } from "lucide-react";
 import { handleError, useCreateComment, useEntity, useUser } from "replyke";
 import { Textarea } from "../../../../ui/textarea";
 import { Task } from "../../../../../types/Task";
+import { cn } from "../../../../../lib/utils";
 
 function ApplyToHelp({
   handleOpenDiscussionSheet,
 }: {
-  handleOpenDiscussionSheet: () => void;
+  handleOpenDiscussionSheet: (passedTask: Task) => void;
 }) {
   const { user } = useUser();
   const { entity } = useEntity();
@@ -56,25 +57,7 @@ function ApplyToHelp({
 
       setShowApplication(false);
       setCommentContent("");
-      handleOpenDiscussionSheet();
-
-      // const newApplicant: TaskApplicationDraft = {
-      //   task_id: task.id,
-      //   task_authorId: task.user.id,
-      //   applicant_id: user.id,
-      //   applicant_name: name,
-      //   applicant_phone_number: phoneNumber,
-      //   additional_info: details,
-      //   status: "new",
-      // };
-
-      // const taskRef = collection(firestore, getCollectionName("applications"));
-
-      // await addDoc(taskRef, newApplicant);
-      // setTask((t) => ({
-      //   ...t,
-      //   applicants: [...t.metadata.applicants, user.id],
-      // }));
+      handleOpenDiscussionSheet(task);
     } catch (err) {
       handleError(err, "Applying to volunteer failed");
     } finally {
@@ -129,7 +112,10 @@ function ApplyToHelp({
         </p>
       </div>
       <button
-        className="p-2 bg-green-400 cursor-pointer w-full text-center text-sm text-white flex items-center justify-center"
+        className={cn(
+          "p-2 bg-green-400 cursor-pointer w-full text-center text-sm text-white flex items-center justify-center",
+          isSubmitting && "opacity-70"
+        )}
         onClick={handleApply}
         disabled={isSubmitting}
       >

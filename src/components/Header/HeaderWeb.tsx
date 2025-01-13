@@ -23,7 +23,7 @@ function HeaderWeb({
           <div className="flex gap-6">
             <CompleteYourProfile setProfileDialogOpen={setProfileDialogOpen} />
             <Link to="/request-assistance">
-              <Button variant="ghost">Looking for Assistance</Button>
+              <Button variant="ghost">Looking for Aid</Button>
             </Link>
 
             {user ? (

@@ -5,10 +5,9 @@ import {
   UserAvatar,
   useSocialComments,
   useSocialStyle,
-  useUser,
 } from "replyke";
 import { useSearchParams } from "react-router-dom";
-import { EyeOff, Mail, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 
 import {
   Sheet,
@@ -36,7 +35,6 @@ export function DiscussionSheet({
   isSheetOpen: boolean;
   setIsSheetOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const { user } = useUser();
   const [searchParams] = useSearchParams();
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -67,7 +65,7 @@ export function DiscussionSheet({
     });
 
   const sortByOptions = (
-    <div className="flex p-6 pt-2 items-center gap-1">
+    <div className="flex px-6 items-center gap-1">
       <h4 className="font-semibold text-base flex-1">Comments</h4>
       <SortByButton
         priority="top"
@@ -106,30 +104,47 @@ export function DiscussionSheet({
     </div>
   );
 
-  const contactDetails =
-    user && task.metadata.applicants.includes(user.id) ? (
-      <div className="flex justify-between gap-4">
-        {task?.user?.metadata.email ? (
-          <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600">
-            <Mail className="size-3" />
-            <div className="mb-0.5">{task.user.metadata.email}</div>
-          </div>
-        ) : null}
-        {task?.user?.metadata.phoneNumber ? (
-          <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600">
-            <Phone className="size-2.5" />
-            <div className="mb-0.5">{task.user.metadata.phoneNumber}</div>
-          </div>
-        ) : null}
-      </div>
-    ) : (
-      <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600 w-max">
-        <EyeOff className="size-2.5" />
-        <div className="mb-0.5">
-          Contact details are visibile for volunteers only
+  // const contactDetails =
+  //   user && task && task.metadata.applicants.includes(user.id) ? (
+  //     <div className="flex justify-between gap-4">
+  //       {task?.user?.metadata.email ? (
+  //         <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600">
+  //           <Mail className="size-3" />
+  //           <div className="mb-0.5">{task.user.metadata.email}</div>
+  //         </div>
+  //       ) : null}
+  //       {task?.user?.metadata.phoneNumber ? (
+  //         <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600">
+  //           <Phone className="size-2.5" />
+  //           <div className="mb-0.5">{task.user.metadata.phoneNumber}</div>
+  //         </div>
+  //       ) : null}
+  //     </div>
+  //   ) : (
+  //     <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600 w-max">
+  //       <EyeOff className="size-2.5" />
+  //       <div className="mb-0.5">
+  //         Contact details are visibile for volunteers only
+  //       </div>
+  //     </div>
+  //   );
+
+  const contactDetails = (
+    <div className="flex justify-between gap-4">
+      {task?.user?.metadata.email ? (
+        <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600">
+          <Mail className="size-3" />
+          <div className="mb-0.5">{task.user.metadata.email}</div>
         </div>
-      </div>
-    );
+      ) : null}
+      {task?.user?.metadata.phoneNumber ? (
+        <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600">
+          <Phone className="size-2.5" />
+          <div className="mb-0.5">{task.user.metadata.phoneNumber}</div>
+        </div>
+      ) : null}
+    </div>
+  );
 
   const mobileSection = (
     <Drawer open={isSheetOpen} onOpenChange={setIsSheetOpen}>
@@ -199,6 +214,7 @@ export function DiscussionSheet({
     </Sheet>
   );
 
+  if (!task) return null;
   return (
     <div className="relative">{isDesktop ? desktopSection : mobileSection}</div>
   );

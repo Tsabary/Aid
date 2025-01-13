@@ -21,6 +21,7 @@ import { Button } from "../ui/button";
 import { handleError, useUser } from "replyke";
 import { isEmail } from "validator";
 import { LoaderCircle } from "lucide-react";
+import { cn } from "../../lib/utils";
 
 function UserProfileDialog({
   open,
@@ -151,7 +152,11 @@ function UserProfileDialog({
             Note: Only applicants will be able to see your contact details.
           </p>
           <DialogFooter>
-            <Button type="submit" disabled={isSubmitting} className="w-full">
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className={cn("w-full", isSubmitting && "opacity-70")}
+            >
               {isSubmitting && (
                 <LoaderCircle className="size-4 mr-2 animate-spin" />
               )}

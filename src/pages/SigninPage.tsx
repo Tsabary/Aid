@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 
 import AuthenticationFrame from "@/components/authentication/AuthenticationFrame";
 import GoogleSignInButton from "@/components/authentication/GoogleSignInButton";
+import { cn } from "../lib/utils";
 
 function SigninPage() {
   const { signInWithEmailAndPassword } = useAuth();
@@ -92,7 +93,7 @@ function SigninPage() {
               <Button
                 onClick={handleLogin}
                 type="submit"
-                className="w-full"
+                className={cn("w-full", isSubmitting && "opacity-70")}
                 disabled={isSubmitting}
               >
                 {isSubmitting && (

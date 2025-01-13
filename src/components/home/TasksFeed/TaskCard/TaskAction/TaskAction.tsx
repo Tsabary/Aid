@@ -7,7 +7,7 @@ import { Task } from "../../../../../types/Task";
 function TaskAction({
   handleOpenDiscussionSheet,
 }: {
-  handleOpenDiscussionSheet: () => void;
+  handleOpenDiscussionSheet: (passedTask: Task) => void;
 }) {
   const { user } = useUser();
   const { entity } = useEntity();

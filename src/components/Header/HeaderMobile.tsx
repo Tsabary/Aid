@@ -17,7 +17,7 @@ function HeaderMobile() {
 
         <div className="flex gap-6">
           <Link to="/find-volunteers">
-            <Button variant="ghost">Looking for Volunteers</Button>
+            <Button variant="ghost">Looking for Aid</Button>
           </Link>
           {user ? (
             <SheetTrigger>
@@ -25,7 +25,7 @@ function HeaderMobile() {
             </SheetTrigger>
           ) : (
             <Link to="/sign-in">
-              <Button variant="ghost">Sign in </Button>
+              <Button variant="ghost">Sign in</Button>
             </Link>
           )}
         </div>

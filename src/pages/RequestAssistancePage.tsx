@@ -11,6 +11,7 @@ import FormVolunteersRequired from "../components/request-assistance/FormVolunte
 import FormCategories from "../components/request-assistance/FormCategories";
 import FormLocation from "../components/request-assistance/FormLocation";
 import { LocationSelectorDialog } from "../components/shared/LocationSelectorDialog";
+import { cn } from "../lib/utils";
 
 export type TaskDraft = {
   title: string;
@@ -191,7 +192,7 @@ function FindHelpPage() {
         <Button
           onClick={handleSubmit}
           disabled={isSubmitting}
-          className="w-max"
+          className={cn("w-max", isSubmitting && "opacity-70")}
         >
           {isSubmitting && (
             <LoaderCircle className="size-4 mr-2 animate-spin" />
