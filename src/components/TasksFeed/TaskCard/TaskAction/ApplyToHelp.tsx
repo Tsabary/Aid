@@ -1,11 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useCreateComment, useEntity, useUser } from "replyke";
+import { handleError, useCreateComment, useEntity, useUser } from "replyke";
 import { Textarea } from "../../../ui/textarea";
+import { Task } from "../../../../types/Task";
+import { LoaderCircle } from "lucide-react";
 
 function ApplyToHelp() {
   const { user } = useUser();
-  const { entity: task } = useEntity();
+  const { entity } = useEntity();
+  const task = entity as Task;
+
   const createComment = useCreateComment({
     loginRequiredCallback: () => {
       // We're not passing anything because createComment is only called after we've verified there is a logged in user
@@ -20,53 +24,50 @@ function ApplyToHelp() {
   const [name, setName] = useState<string>("");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isSubmittingRef = useRef(false);
+
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   async function handleApply() {
+    if (isSubmittingRef.current) return;
+    if (!user) throw new Error("No user authenticated");
+
+    if (user.id === task.user?.id) {
+      throw new Error("User is the task author");
+    }
+
+    if (task.metadata.applicants?.includes(user.id)) {
+      throw new Error("User has already applied");
+    }
+
+    if (!task.user?.name) {
+      throw new Error("User's profile is incomplete");
+    }
     try {
-      if (!user) {
-        throw new Error("No user authenticated");
-      }
-
-      if (user.id === task.user.id) {
-        throw new Error("User is the task author");
-      }
-
-      if (task.metadata.applicants?.includes(user.id)) {
-        throw new Error("User has already applied");
-      }
-
-      if (!name) {
-        setErrors({ name: "בבקשה הזינו שם" });
-        throw new Error("Please add your name");
-      }
-
+      isSubmittingRef.current = true;
       setIsSubmitting(true);
 
-      const newApplicant: TaskApplicationDraft = {
-        task_id: task.id,
-        task_authorId: task.user.id,
-        applicant_id: user.id,
-        applicant_name: name,
-        applicant_phone_number: phoneNumber,
-        additional_info: details,
-        status: "new",
-      };
-
-      if (user.avatar) {
-        newApplicant["applicant_avatar"] = user.avatar;
-      }
+      // const newApplicant: TaskApplicationDraft = {
+      //   task_id: task.id,
+      //   task_authorId: task.user.id,
+      //   applicant_id: user.id,
+      //   applicant_name: name,
+      //   applicant_phone_number: phoneNumber,
+      //   additional_info: details,
+      //   status: "new",
+      // };
 
       // const taskRef = collection(firestore, getCollectionName("applications"));
 
       // await addDoc(taskRef, newApplicant);
-      setTask((t) => ({
-        ...t,
-        applicants: [...t.metadata.applicants, user.id],
-      }));
+      // setTask((t) => ({
+      //   ...t,
+      //   applicants: [...t.metadata.applicants, user.id],
+      // }));
     } catch (err) {
-      console.log("Failed to apply: ", err);
+      handleError(err, "Applying to volunteer failed");
     } finally {
+      isSubmittingRef.current = false;
       setIsSubmitting(false);
     }
   }
@@ -124,9 +125,11 @@ function ApplyToHelp() {
         </p>
       </div>
       <button
-        className="p-2 bg-green-400 cursor-pointer w-full text-center text-sm text-white"
+        className="p-2 bg-green-400 cursor-pointer w-full text-center text-sm text-white flex items-center"
         onClick={handleApply}
+        disabled={isSubmitting}
       >
+        {isSubmitting && <LoaderCircle className="size-4 mr-2 animate-spin" />}
         Submit my offer
       </button>
     </div>

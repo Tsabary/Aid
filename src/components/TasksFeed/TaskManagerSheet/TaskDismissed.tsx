@@ -1,19 +1,16 @@
+import { useEntity } from "replyke";
 import { Task } from "../../../types/Task";
 import SingleTaskApplicant from "../SingleTaskApplicant";
 
-function TaskDismissed({
-  task,
-  applications,
-}: {
-  task?: Task;
-  applications: TaskApplication[];
-}) {
+function TaskDismissed({ applications }: { applications: TaskApplication[] }) {
+  const { entity } = useEntity();
+  const task = entity as Task;
   if (!task) return null;
 
   if (applications.length === 0) {
     return (
-      <div className="w-full px-4">
-        <h1 className="font-semibold text-xl">לא הגדרת שום מתנדב\ת כלא רלוונטי\ת</h1>
+      <div className="w-full px-4 grid justify-center items-center h-full font-medium text-xl text-center text-gray-300">
+        No volunteers have been dismissed
       </div>
     );
   }

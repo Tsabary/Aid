@@ -1,19 +1,17 @@
-import { Task } from "../../../types/Task";
+import { useEntity } from "replyke";
 import SingleTaskApplicant from "../SingleTaskApplicant";
+import { Task } from "../../../types/Task";
 
-function TaskApplicants({
-  task,
-  applications,
-}: {
-  task?: Task;
-  applications: TaskApplication[];
-}) {
+function TaskApplicants({ applications }: { applications: TaskApplication[] }) {
+  const { entity } = useEntity();
+  const task = entity as Task;
+
   if (!task) return null;
 
   if (applications.length === 0) {
     return (
-      <div className="w-full px-4">
-        <h1 className="font-semibold text-xl">אין מתנדבים חדשים</h1>
+      <div className="w-full px-4 grid justify-center items-center h-full font-medium text-xl text-center text-gray-300">
+        No new volunteers
       </div>
     );
   }

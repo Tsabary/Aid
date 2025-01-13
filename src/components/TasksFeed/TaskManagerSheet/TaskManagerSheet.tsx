@@ -116,7 +116,7 @@ function TaskManagerSheet({
           <SheetDescription>{task?.content}</SheetDescription>
         </SheetHeader>
 
-        <Tabs defaultValue="offered" className="w-full">
+        <Tabs defaultValue="offered" className="w-full flex-1 flex flex-col">
           <TabsList className="w-full justify-between">
             <TabsTrigger value="offered" className="text-xs">
               Offered ({offeredHelp})
@@ -130,26 +130,23 @@ function TaskManagerSheet({
               {applicants.filter((app) => app.status === "dismissed").length})
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="offered">
+          <TabsContent value="offered" className="flex-1">
             <TaskApplicants
               applications={applicants.filter((app) => app.status === "new")}
-              task={task}
             />
           </TabsContent>
-          <TabsContent value="assigned">
+          <TabsContent value="assigned" className="flex-1">
             <TaskAssigned
               applications={applicants.filter(
                 (app) => app.status === "assigned"
               )}
-              task={task}
             />
           </TabsContent>
-          <TabsContent value="dismissed">
+          <TabsContent value="dismissed" className="flex-1">
             <TaskDismissed
               applications={applicants.filter(
                 (app) => app.status === "dismissed"
               )}
-              task={task}
             />
           </TabsContent>
         </Tabs>
