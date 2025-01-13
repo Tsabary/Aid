@@ -14,7 +14,7 @@ function TaskHeader({ isKm }: { isKm: boolean }) {
   const task = entity as Task;
 
   const requiredVoluneers = task.metadata.volunteersRequired
-    ? task.metadata.volunteersRequired - (task.metadata.volunteersAssigned || 0)
+    ? task.metadata.volunteersRequired - (task.metadata.applicants.length || 0)
     : null;
 
   const requiredVoluneersIndicator = (

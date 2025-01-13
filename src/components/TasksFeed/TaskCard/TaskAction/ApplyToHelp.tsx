@@ -5,7 +5,11 @@ import { handleError, useCreateComment, useEntity, useUser } from "replyke";
 import { Textarea } from "../../../ui/textarea";
 import { Task } from "../../../../types/Task";
 
-function ApplyToHelp() {
+function ApplyToHelp({
+  handleOpenDiscussionSheet,
+}: {
+  handleOpenDiscussionSheet: () => void;
+}) {
   const { user } = useUser();
   const { entity } = useEntity();
   const task = entity as Task;
@@ -46,11 +50,12 @@ function ApplyToHelp() {
 
       let content = "I'd like to help.";
 
-      if (commentContent) content += `\n\n${commentContent}`;
+      if (commentContent) content += ` - ${commentContent}`;
       await createComment({ entityId: task.id, content, mentions: [] });
 
       setShowApplication(false);
       setCommentContent("");
+      handleOpenDiscussionSheet();
 
       // const newApplicant: TaskApplicationDraft = {
       //   task_id: task.id,
@@ -128,7 +133,7 @@ function ApplyToHelp() {
         disabled={isSubmitting}
       >
         {isSubmitting && <LoaderCircle className="size-4 mr-2 animate-spin" />}
-        Submit my offer
+        Apply now
       </button>
     </div>
   );

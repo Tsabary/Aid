@@ -46,7 +46,7 @@ function TaskCard({
         </Button>
       </div>
 
-      <TaskAction />
+      <TaskAction handleOpenDiscussionSheet={handleOpenDiscussionSheet} />
     </div>
   );
 }

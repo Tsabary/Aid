@@ -104,6 +104,23 @@ export function DiscussionSheet({
     </div>
   );
 
+  const contactDetails = (
+    <div className="flex justify-between gap-4">
+      {task?.user?.metadata.email ? (
+        <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600">
+          <Mail className="size-3" />
+          <div className="mb-0.5">{task.user.metadata.email}</div>
+        </div>
+      ) : null}
+      {task?.user?.metadata.phoneNumber ? (
+        <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600">
+          <Phone className="size-2.5" />
+          <div className="mb-0.5">{task.user.metadata.phoneNumber}</div>
+        </div>
+      ) : null}
+    </div>
+  );
+
   const mobileSection = (
     <Drawer open={isSheetOpen} onOpenChange={setIsSheetOpen}>
       <DrawerContent className="h-screen overflow-hidden flex flex-col p-0 pt-6 bg-white">
@@ -123,20 +140,7 @@ export function DiscussionSheet({
             </DrawerDescription>
           </div>
 
-          <div className="flex justify-between gap-4 bg-gray-100 px-4 py-2 rounded-lg text-gray-600">
-            {task?.user?.metadata.email ? (
-              <div className="flex gap-1.5 text-xs items-center">
-                <Mail className="size-3" />
-                <div className="mb-0.5">{task.user.metadata.email}</div>
-              </div>
-            ) : null}
-            {task?.user?.metadata.phoneNumber ? (
-              <div className="flex gap-1.5 text-xs items-center">
-                <Phone className="size-3" />
-                <div className="mb-0.5">{task.user.metadata.phoneNumber}</div>
-              </div>
-            ) : null}
-          </div>
+          {contactDetails}
         </DrawerHeader>
         <CommentSectionProvider>
           {sortByOptions}
@@ -169,20 +173,7 @@ export function DiscussionSheet({
             </SheetDescription>
           </div>
 
-          <div className="flex justify-between gap-4 bg-gray-100 px-4 py-2 rounded-lg text-gray-600">
-            {task?.user?.metadata.email ? (
-              <div className="flex gap-1.5 text-xs items-center">
-                <Mail className="size-3" />
-                <div className="mb-0.5">{task.user.metadata.email}</div>
-              </div>
-            ) : null}
-            {task?.user?.metadata.phoneNumber ? (
-              <div className="flex gap-1.5 text-xs items-center">
-                <Phone className="size-3" />
-                <div className="mb-0.5">{task.user.metadata.phoneNumber}</div>
-              </div>
-            ) : null}
-          </div>
+          {contactDetails}
         </SheetHeader>
         <CommentSectionProvider>
           {sortByOptions}
@@ -199,9 +190,7 @@ export function DiscussionSheet({
   );
 
   return (
-    <div className="relative">
-      {isDesktop ? desktopSection : mobileSection}
-    </div>
+    <div className="relative">{isDesktop ? desktopSection : mobileSection}</div>
   );
 }
 

@@ -129,7 +129,9 @@ function FindHelpPage() {
         },
         metadata: {
           volunteersRequired: newTask.volunteersRequired,
-          volunteersAssigned: 0,
+          applicants: [],
+          assigned: [],
+          dismissed: [],
         },
       });
       navigate("/");

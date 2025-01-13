@@ -12,6 +12,7 @@ import {
   SheetTitle,
 } from "../../ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Task } from "../../../types/Task";
 
 // import TaskCommentSection from "./TaskCommentSection";
 
@@ -23,7 +24,9 @@ function TaskManagerSheet({
   setIsSheetOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const { user } = useUser();
-  const { entity: task } = useEntity();
+   const { entity } = useEntity();
+   const task = entity as Task;
+
   const [applicants, setApplicants] = useState<TaskApplication[]>([]);
 
   const offeredHelp: number =
