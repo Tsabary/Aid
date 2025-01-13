@@ -27,5 +27,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "recycle_bin/ReportTaskComplete.tsx", "recycle_bin/donations", "recycle_bin/TaskApplicant.d.ts"],
+  "exclude": ["recycle_bin"]
 }
