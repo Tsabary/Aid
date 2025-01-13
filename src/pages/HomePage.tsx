@@ -6,11 +6,16 @@ import { LocationSelectorDialog } from "../components/shared/LocationSelectorDia
 import { RadiusSelectorDialog } from "../components/shared/RadiusSelectorDialog";
 import CategoryFilters from "../components/home/CategoryFilters";
 import LocationFilters from "../components/home/LocationFilters";
+import WelcomeDialog from "../components/home/WelcomeDialog";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
+  const navigate = useNavigate();
   const { setLocationFilters, updateKeywordsFilters, kickstart } = useFeed();
+
   const [isLocationDialogOpen, setIsLocationDialogOpen] = useState(false);
   const [isRadiusDialogOpen, setIsRadiusDialogOpen] = useState(false);
+  const [isWelcomeDialogOpen, setIsWelcomeDialogOpen] = useState(false);
 
   const [categories, setCategories] = useState<TaskCategory[]>([]);
   const [location, setLocation] = useState<{
@@ -59,12 +64,24 @@ function HomePage() {
     }
   }, []);
 
+  // check if seen welcome message
+  useEffect(() => {
+    const welcomeViewed = localStorage.getItem("welcome-viewed");
+    if (!welcomeViewed) {
+      navigate("/welcome");
+    }
+  }, []);
+
   useEffect(() => {
     updateKeywordsFilters?.("replace", "includes", categories);
   }, [categories]);
 
   return (
     <>
+      <WelcomeDialog
+        isDialogOpen={isWelcomeDialogOpen}
+        setIsDialogOpen={setIsWelcomeDialogOpen}
+      />
       <LocationSelectorDialog
         isDialogOpen={isLocationDialogOpen}
         setIsDialogOpen={setIsLocationDialogOpen}

@@ -33,8 +33,8 @@ function TaskHeader({
 
     const toRadians = (degrees: number) => (degrees * Math.PI) / 180;
 
-    const [taskLat, taskLng] = taskCoordinates; // Destructure taskCoordinates
-    const { lat: locationLat, lng: locationLng } = locationCoordinates; // Destructure locationCoordinates
+    const [taskLng, taskLat] = taskCoordinates; // Destructure taskCoordinates
+    const { lng: locationLng, lat: locationLat } = locationCoordinates; // Destructure locationCoordinates
 
     const R = isKm ? 6371 : 3958.8; // Earth's radius in kilometers or miles
     const dLat = toRadians(locationLat - taskLat);
@@ -97,9 +97,7 @@ function TaskHeader({
         </div>
         <div className="flex gap-1 items-center text-xs text-gray-500">
           {distance
-            ? distance.toFixed(1) + isKm
-              ? "km"
-              : " miles"
+            ? `${distance.toFixed(1)} ${isKm ? "km" : " miles"} `
             : "Set Location"}
           <MapPin className="size-3" />
         </div>

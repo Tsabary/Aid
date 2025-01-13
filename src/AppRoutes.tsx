@@ -10,6 +10,7 @@ import SigninPage from "./pages/SigninPage";
 import SignupPage from "./pages/SignupPage";
 import Layout from "./components/shared/Layout";
 import RequestAssistancePage from "./pages/RequestAssistancePage";
+import WelcomePage from "./pages/WelcomePage";
 
 function AppRoutes() {
   const { user } = useUser();
@@ -30,6 +31,7 @@ function AppRoutes() {
             path="/request-assistance"
             element={<RequestAssistancePage />}
           />
+          <Route path="/welcome" element={<WelcomePage />} />
         </Route>
         <Route
           path="/sign-in"
@@ -39,12 +41,6 @@ function AppRoutes() {
           path="/sign-up"
           element={user ? <Navigate to="/" /> : <SignupPage />}
         />
-
-        {/* <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/find-help" element={<FindHelpPage />} />
-        <Route path="/my-posts" element={<MyPosts />} />
-        <Route path="/information" element={<InformationPage />} />
-        <Route path="/donate" element={<DonatePage />} /> */}
       </Routes>
     </Router>
   );
