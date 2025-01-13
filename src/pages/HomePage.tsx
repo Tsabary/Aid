@@ -1,10 +1,10 @@
-import { useFeed } from "replyke";
+import { handleError, useFeed } from "replyke";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { helpCategories } from "../constants/categories";
 import TasksFeed from "../components/TasksFeed";
 import { Task } from "../types/Task";
 import { LocationSelectorDialog } from "../components/shared/LocationSelectorDialog";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { MapPin, Radius } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { RadiusSelectorDialog } from "../components/shared/RadiusSelectorDialog";
@@ -30,32 +30,20 @@ function HomePage() {
     ? radius / KM_TO_METERS // Convert to kilometers for display
     : radius / MILES_TO_METERS; // Convert to miles for display
 
-  // const handleScroll = useCallback(async () => {
-  //   try {
-  //     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-  //       if (!lastVisible) {
-  //         throw new Error("Last visible wasn't set");
-  //       }
-  //       const newDocs = await fetchMoreDocuments(lastVisible);
-  //       if (!newDocs) {
-  //         throw new Error("Fetching new docs failed");
-  //       }
-  //       setTasks((ts) => (ts ? [...ts, ...newDocs] : ts));
-  //       setLastVisible(newDocs[newDocs.length - 1]);
-  //     }
-  //   } catch (err) {
-  //     if (err instanceof Error) {
-  //       console.log("Failed to fetch more documents", err.message);
-  //     } else {
-  //       console.log("Failed to fetch more documents", err);
-  //     }
-  //   }
-  // }, [lastVisible, fetchMoreDocuments]);
+  const handleScroll = useCallback(async () => {
+    try {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        console.log("Should fetch more");
+      }
+    } catch (err) {
+      handleError(err, "Fetching new entities failed");
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, [tasks, lastVisible, handleScroll]);
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
 
   // Save location locally whenever it changes
   useEffect(() => {
