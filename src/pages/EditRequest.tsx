@@ -1,6 +1,6 @@
-import { useCallback, useRef, useState } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
-import { handleError, useCreateEntity, useUser } from "replyke";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { handleError, useEntityData, useUser } from "replyke";
 import { LoaderCircle } from "lucide-react";
 
 import { Button } from "../components/ui/button";
@@ -12,6 +12,7 @@ import FormCategories from "../components/request-assistance/FormCategories";
 import FormLocation from "../components/request-assistance/FormLocation";
 import { LocationSelectorDialog } from "../components/shared/LocationSelectorDialog";
 import { cn } from "../lib/utils";
+import { Task } from "../types/Task";
 
 export type TaskDraft = {
   title: string;
@@ -20,9 +21,11 @@ export type TaskDraft = {
   category: TaskCategory | null;
 };
 
-function FindHelpPage() {
+function EditRequest() {
   const navigate = useNavigate();
-  const createEntity = useCreateEntity();
+  const { taskId: shortId } = useParams();
+  const { entity, updateEntity } = useEntityData({ shortId });
+  const task = entity as Task | undefined;
   const { user } = useUser();
   const { setProfileDialogOpen } = useOutletContext<{
     setProfileDialogOpen: (state: boolean) => void;
@@ -33,6 +36,7 @@ function FindHelpPage() {
     name: string;
     coordinates: { lat: number; lng: number };
   } | null>(null);
+
   const [newTask, setNewTask] = useState<TaskDraft>({
     title: "",
     content: "",
@@ -120,20 +124,22 @@ function FindHelpPage() {
     isSubmittingRef.current = true;
     setIsSubmitting(true);
     try {
-      await createEntity({
-        title: newTask.title,
-        content: newTask.content,
-        keywords: [newTask.category],
-        location: {
-          latitude: location.coordinates.lat,
-          longitude: location.coordinates.lng,
-        },
-        metadata: {
-          volunteersRequired: newTask.volunteersRequired,
-          locationName: location.name,
-          applicants: [],
-          assigned: [],
-          dismissed: [],
+      await updateEntity({
+        update: {
+          title: newTask.title,
+          content: newTask.content,
+          keywords: [newTask.category],
+          location: {
+            latitude: location.coordinates.lat,
+            longitude: location.coordinates.lng,
+          },
+          metadata: {
+            volunteersRequired: newTask.volunteersRequired,
+            locationName: location.name,
+            applicants: [],
+            assigned: [],
+            dismissed: [],
+          },
         },
       });
       navigate("/");
@@ -143,7 +149,26 @@ function FindHelpPage() {
       isSubmittingRef.current = false;
       setIsSubmitting(false);
     }
-  }, [createEntity, newTask, location, navigate, user, setProfileDialogOpen]);
+  }, [updateEntity, newTask, location, navigate, user, setProfileDialogOpen]);
+
+  useEffect(() => {
+    if (!task || !task.location) return;
+
+    setNewTask({
+      title: task.title || "",
+      content: task.content || "",
+      volunteersRequired: task.metadata.volunteersRequired,
+      category: task.keywords[0] as TaskCategory,
+    });
+
+    setLocation({
+      name: task.metadata.locationName,
+      coordinates: {
+        lng: task.location.coordinates[0],
+        lat: task.location.coordinates[1],
+      },
+    });
+  }, [task]);
 
   return (
     <>
@@ -216,11 +241,11 @@ function FindHelpPage() {
           {isSubmitting && (
             <LoaderCircle className="size-4 mr-2 animate-spin" />
           )}
-          Publish Request
+          Update Request
         </Button>
       </div>
     </>
   );
 }
 
-export default FindHelpPage;
+export default EditRequest;

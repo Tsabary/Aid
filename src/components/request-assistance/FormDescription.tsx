@@ -1,15 +1,13 @@
-import React from "react";
-import { TaskDraft } from "../../pages/RequestAssistancePage";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 
 function FormDescription({
-  newTask,
-  setNewTask,
+  content,
+  onChange,
   errors,
 }: {
-  newTask: TaskDraft;
-  setNewTask: React.Dispatch<React.SetStateAction<TaskDraft>>;
+  content: string;
+  onChange: (newContent: string) => void;
   errors: Record<"title" | "content" | "category", string | null>;
 }) {
   return (
@@ -22,10 +20,8 @@ function FormDescription({
         <Textarea
           id="task-content"
           placeholder="Add more details to help us help you"
-          value={newTask.content || ""}
-          onChange={(e) =>
-            setNewTask((nt) => ({ ...nt, content: e.target.value }))
-          }
+          value={content}
+          onChange={(e) => onChange(e.target.value)}
         />
         {errors["content"] && (
           <p className="text-xs text-red-500 mt-1">{errors["content"]}</p>

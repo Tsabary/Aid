@@ -1,16 +1,14 @@
-import React from "react";
-import { TaskDraft } from "../../pages/RequestAssistancePage";
 import { Label } from "@/components/ui/label";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { helpCategories } from "@/constants/categories";
 
 function FormCategories({
-  newTask,
-  setNewTask,
+  category,
+  onChange,
   errors,
 }: {
-  newTask: TaskDraft;
-  setNewTask: React.Dispatch<React.SetStateAction<TaskDraft>>;
+  category: TaskCategory | null;
+  onChange: (newCategory: TaskCategory) => void;
   errors: Record<"title" | "content" | "category", string | null>;
 }) {
   return (
@@ -25,12 +23,9 @@ function FormCategories({
           type="single"
           className="w-full flex flex-wrap justify-start gap-1.5"
           onValueChange={(v) => {
-            setNewTask((nt) => ({
-              ...nt,
-              category: (v ?? null) as TaskCategory,
-            }));
+            onChange((v ?? null) as TaskCategory);
           }}
-          value={newTask.category ?? undefined}
+          value={category ?? undefined}
         >
           {Object.keys(helpCategories).map((k) => (
             <ToggleGroupItem

@@ -11,6 +11,7 @@ function WebDropdown() {
   const navigate = useNavigate();
   const { user } = useUser();
   const { signOut } = useAuth();
+  if (!user) return null;
   return (
     <DropdownMenuContent>
       <DropdownMenuLabel>
@@ -25,7 +26,7 @@ function WebDropdown() {
 
       <DropdownMenuSeparator />
       <DropdownMenuItem
-        onClick={() => navigate("/my-requests")}
+        onClick={() => navigate("/profile/" + user.id)}
         className="cursor-pointer"
       >
         My Requests

@@ -1,13 +1,16 @@
+import { useEffect, useState } from "react";
 import { Entity, EntityProvider, useFeed } from "replyke";
-import DiscussionSheet from "../components/home/DiscussionSheet";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { Task } from "../types/Task";
-import { useState } from "react";
 import Measure from "react-measure";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { useParams } from "react-router-dom";
+import DiscussionSheet from "../components/home/DiscussionSheet";
+import { Task } from "../types/Task";
 import { TaskCard } from "../components/home/TasksFeed/TaskCard";
 
-function MyRequests() {
-  const { entities } = useFeed();
+function Profile() {
+  const { profileId } = useParams();
+
+  const { entities, setUserId, setLocationFilters, kickstart } = useFeed();
   const tasks = entities as Task[];
   const [isDiscussionSheetOpen, setIsDiscussionSheetOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task>();
@@ -16,6 +19,14 @@ function MyRequests() {
     setSelectedTask(task);
     setIsDiscussionSheetOpen(true);
   };
+
+  useEffect(() => {
+    if (!profileId) return;
+    console.log({ profileId });
+    setUserId?.(profileId);
+    setLocationFilters?.(null);
+    kickstart?.();
+  }, [profileId]);
 
   return (
     <div className="w-full max-w-7xl grid gap-4">
@@ -61,4 +72,4 @@ function MyRequests() {
   );
 }
 
-export default MyRequests;
+export default Profile;

@@ -95,10 +95,14 @@ function TaskHeader({
         <div className="rounded-md px-2 py-0.5 bg-blue-200 text-xs text-gray-500 w-max">
           {helpCategories[task.keywords[0] as TaskCategory]}
         </div>
-        <div className="flex gap-1 items-center text-xs text-gray-500">
-          {distance
-            ? `${distance.toFixed(1)} ${isKm ? "km" : " miles"} `
-            : "Set Location"}
+        <div className="flex gap-1 items-center text-xs text-gray-500 overflow-hidden">
+          <div>
+            {distance
+              ? `${distance.toFixed(1)} ${isKm ? "km" : " miles"} `
+              : task.metadata.locationName.length > 12
+              ? `${task.metadata.locationName.slice(0, 10)}..`
+              : task.metadata.locationName}
+          </div>
           <MapPin className="size-3" />
         </div>
       </div>

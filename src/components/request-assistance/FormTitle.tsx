@@ -1,14 +1,13 @@
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { TaskDraft } from "../../pages/RequestAssistancePage";
 
 function FormTitle({
-  newTask,
-  setNewTask,
+  title,
+  onChange,
   errors,
 }: {
-  newTask: TaskDraft;
-  setNewTask: React.Dispatch<React.SetStateAction<TaskDraft>>;
+  title: string;
+  onChange: (newContent: string) => void;
   errors: Record<"title" | "content" | "category", string | null>;
 }) {
   return (
@@ -21,10 +20,8 @@ function FormTitle({
         <Input
           id="task-title"
           placeholder="Tell us what you need assistance with"
-          value={newTask.title || ""}
-          onChange={(e) =>
-            setNewTask((nt) => ({ ...nt, title: e.target.value }))
-          }
+          value={title}
+          onChange={(e) => onChange(e.target.value)}
         />
         {errors["title"] && (
           <p className="text-xs text-red-500 mt-1">{errors["title"]}</p>

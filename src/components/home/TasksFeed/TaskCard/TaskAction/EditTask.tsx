@@ -15,7 +15,7 @@ function EditTask() {
       onClick={(e) => {
         e.stopPropagation();
         if (!user || user.id !== task.user?.id) return;
-        navigate("/task/edit/" + task.shortId);
+        navigate("/task/" + task.shortId + "/edit");
       }}
     >
       Edit your request

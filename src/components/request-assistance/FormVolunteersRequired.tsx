@@ -1,30 +1,23 @@
 import React from "react";
-import { TaskDraft } from "../../pages/RequestAssistancePage";
 import { Label } from "../ui/label";
 import { Checkbox } from "../ui/checkbox";
 import { Input } from "../ui/input";
 
 function FormVolunteersRequired({
-  newTask,
-  setNewTask,
+  volunteersRequired,
+  onChange,
 }: {
-  newTask: TaskDraft;
-  setNewTask: React.Dispatch<React.SetStateAction<TaskDraft>>;
+  volunteersRequired: number | null;
+  onChange: (newValue: number | null) => void;
   errors: Record<"title" | "content" | "category", string | null>;
 }) {
   const handleCheckboxChange = (checked: boolean) => {
-    setNewTask((nt) => ({
-      ...nt,
-      volunteersRequired: checked ? null : 1,
-    }));
+    onChange(checked ? null : 1);
   };
 
   const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = parseInt(event.target.value, 10);
-    setNewTask((nt) => ({
-      ...nt,
-      volunteersRequired: newValue >= 1 && newValue <= 99 ? newValue : 1,
-    }));
+    onChange(newValue >= 1 && newValue <= 99 ? newValue : 1);
   };
 
   return (
@@ -37,7 +30,7 @@ function FormVolunteersRequired({
         <div className="flex items-center space-x-2">
           <Checkbox
             id="unlimited"
-            checked={newTask.volunteersRequired === null}
+            checked={volunteersRequired === null}
             onCheckedChange={handleCheckboxChange}
           />
           <Label
@@ -47,19 +40,15 @@ function FormVolunteersRequired({
             Unlimited
           </Label>
         </div>
-        {newTask.volunteersRequired && (
+        {volunteersRequired && (
           <Input
             type="number"
             id="requiredVolunteersPicker"
             min={1}
             max={99}
-            value={
-              newTask.volunteersRequired === null
-                ? ""
-                : newTask.volunteersRequired
-            }
+            value={volunteersRequired === null ? "" : volunteersRequired}
             onChange={handleNumberChange}
-            disabled={newTask.volunteersRequired === null}
+            disabled={volunteersRequired === null}
             className="w-14 h-8 px-2"
           />
         )}

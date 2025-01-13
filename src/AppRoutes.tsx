@@ -11,7 +11,8 @@ import SignupPage from "./pages/SignupPage";
 import Layout from "./components/shared/Layout";
 import RequestAssistancePage from "./pages/RequestAssistancePage";
 import WelcomePage from "./pages/WelcomePage";
-import MyRequests from "./pages/MyRequests";
+import Profile from "./pages/Profile";
+import EditRequest from "./pages/EditRequest";
 
 function AppRoutes() {
   const { user } = useUser();
@@ -29,21 +30,18 @@ function AppRoutes() {
             }
           />
           <Route
-            path="/my-requests"
+            path="/profile/:profileId"
             element={
-              user ? (
-                <FeedProvider userId={user.id}>
-                  <MyRequests />
-                </FeedProvider>
-              ) : (
-                <Navigate to="/" />
-              )
+              <FeedProvider idle>
+                <Profile />
+              </FeedProvider>
             }
           />
           <Route
             path="/request-assistance"
             element={<RequestAssistancePage />}
           />
+          <Route path="/task/:taskId/edit" element={<EditRequest />} />
           <Route path="/welcome" element={<WelcomePage />} />
         </Route>
         <Route
