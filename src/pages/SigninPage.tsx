@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import AuthenticationFrame from "@/components/authentication/AuthenticationFrame";
-import GoogleSignInButton from "@/components/authentication/GoogleSignInButton";
 import { cn } from "../lib/utils";
 
 function SigninPage() {
@@ -105,7 +104,7 @@ function SigninPage() {
                 <p className="text-xs text-red-600 mt-2">{errors.form}</p>
               )} */}
             </div>
-            <GoogleSignInButton />
+            {/* <GoogleSignInButton /> */}
           </div>
         </div>
         <div className="mt-4 text-center text-sm">

@@ -13,7 +13,7 @@ function AuthenticationFrame({ children }: { children: ReactNode }) {
         <div className="flex items-center justify-center py-12 flex-1">
           <div className="mx-auto grid w-[350px] gap-6">{children}</div>
         </div>
-        <div className="p-6 text-sm font-medium flex gap-6 text-gray-500">
+        {/* <div className="p-6 text-sm font-medium flex gap-6 text-gray-500">
           <div>© Replyke {new Date().getFullYear()}</div>
           <a
             href="https://www.freeprivacypolicy.com/live/a7fe05af-6b92-4ecf-bbd6-c01f51bc76b6"
@@ -22,7 +22,7 @@ function AuthenticationFrame({ children }: { children: ReactNode }) {
           >
             Privacy Policy
           </a>
-        </div>
+        </div> */}
       </div>
       <img
         src={auth}
