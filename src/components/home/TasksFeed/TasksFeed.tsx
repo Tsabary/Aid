@@ -5,7 +5,7 @@ import Measure from "react-measure";
 
 import { TaskCard } from "./TaskCard";
 import { Task } from "../../../types/Task";
-import DiscussionSheet from "../DiscussionSheet";
+import DiscussionSheet from "../../shared/DiscussionSheet";
 
 function TasksFeed({
   isKm,

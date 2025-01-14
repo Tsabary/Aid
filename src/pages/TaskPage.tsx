@@ -1,20 +1,26 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
 import { EntityProvider, useEntity, UserAvatar } from "replyke";
 import { Task } from "../types/Task";
 import { helpCategories } from "../constants/categories";
 import RequiredVolunteersIndicator from "../components/shared/RequiredVolunteersIndicator";
 import DistanceLocationIndicator from "../components/shared/DistanceLocationIndicator";
 import { Button } from "../components/ui/button";
-import DiscussionSheet from "../components/home/DiscussionSheet";
+import DiscussionSheet from "../components/shared/DiscussionSheet";
 
 function TaskPage() {
+  const [searchParams] = useSearchParams();
   const { entity } = useEntity();
   const task = entity as Task;
   const [isDiscussionSheetOpen, setIsDiscussionSheetOpen] = useState(false);
 
   const requiredVoluneers = task?.metadata.volunteersRequired;
 
+  useEffect(() => {
+    if (searchParams.get("commentId")) {
+      setIsDiscussionSheetOpen(true);
+    }
+  }, [searchParams]);
   if (!task) return null;
   return (
     <>

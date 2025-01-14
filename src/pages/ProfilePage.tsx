@@ -3,7 +3,7 @@ import { Entity, EntityProvider, useFeed } from "replyke";
 import Measure from "react-measure";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { useParams } from "react-router-dom";
-import DiscussionSheet from "../components/home/DiscussionSheet";
+import DiscussionSheet from "../components/shared/DiscussionSheet";
 import { Task } from "../types/Task";
 import { TaskCard } from "../components/home/TasksFeed/TaskCard";
 

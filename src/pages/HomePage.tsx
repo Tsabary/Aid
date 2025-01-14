@@ -11,7 +11,13 @@ import WelcomeDialog from "../components/home/WelcomeDialog";
 
 function HomePage() {
   const navigate = useNavigate();
-  const { setLocationFilters, updateKeywordsFilters, kickstart } = useFeed();
+  const {
+    setLocationFilters,
+    updateKeywordsFilters,
+    kickstart,
+    hasMore,
+    loadMore,
+  } = useFeed();
 
   const [isLocationDialogOpen, setIsLocationDialogOpen] = useState(false);
   const [isRadiusDialogOpen, setIsRadiusDialogOpen] = useState(false);
@@ -28,8 +34,11 @@ function HomePage() {
 
   const handleScroll = useCallback(async () => {
     try {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        console.log("Should fetch more");
+      if (
+        window.innerHeight + window.scrollY >= document.body.offsetHeight &&
+        hasMore
+      ) {
+        loadMore?.();
       }
     } catch (err) {
       handleError(err, "Fetching new entities failed");
