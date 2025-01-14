@@ -21,7 +21,7 @@ function SingleNotification({
       notification.action === "open-entity" &&
       "entityShortId" in notification.metadata
     ) {
-      navigate(`/${notification.metadata.entityShortId}`);
+      navigate(`/task/${notification.metadata.entityShortId}`);
     }
 
     if (
@@ -30,7 +30,7 @@ function SingleNotification({
       "commentId" in notification.metadata
     ) {
       navigate(
-        `/${notification.metadata.entityShortId}?commentId=${notification.metadata.commentId}`
+        `/task/${notification.metadata.entityShortId}?commentId=${notification.metadata.commentId}`
       );
     }
   };

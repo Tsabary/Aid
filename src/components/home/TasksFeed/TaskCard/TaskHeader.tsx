@@ -1,14 +1,9 @@
-import { useEntity, UserAvatar } from "replyke";
-import { MapPin, User } from "lucide-react";
-import { helpCategories } from "../../../../constants/categories";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Task } from "../../../../types/Task";
 import { useMemo } from "react";
+import { useEntity, UserAvatar } from "replyke";
+import { helpCategories } from "../../../../constants/categories";
+import { Task } from "../../../../types/Task";
+import RequiredVolunteersIndicator from "../../../shared/RequiredVolunteersIndicator";
+import DistanceLocationIndicator from "../../../shared/DistanceLocationIndicator";
 
 function TaskHeader({
   isKm,
@@ -57,37 +52,6 @@ function TaskHeader({
 
   const requiredVoluneers = task.metadata.volunteersRequired;
 
-  const requiredVoluneersIndicator = (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-          }}
-        >
-          <div className="flex gap-1 items-center text-xs text-gray-500">
-            {requiredVoluneers === null
-              ? "∞"
-              : requiredVoluneers === 0
-              ? "✓"
-              : requiredVoluneers}
-            <User className="size-3" />
-          </div>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>
-            {requiredVoluneers === null
-              ? "Unlimited amount of volunteers required"
-              : requiredVoluneers === 0
-              ? "No more volunteers required"
-              : requiredVoluneers + " more volunteers required"}
-          </p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  );
-
   if (!task) return null;
 
   return (
@@ -97,16 +61,11 @@ function TaskHeader({
         <div className="rounded-md px-2 py-0.5 bg-blue-200 text-xs text-gray-500 w-max">
           {helpCategories[task.keywords[0] as TaskCategory]}
         </div>
-        <div className="flex gap-1 items-center text-xs text-gray-500 overflow-hidden">
-          <div>
-            {distance
-              ? `${distance.toFixed(1)} ${isKm ? "km" : " miles"} `
-              : task.metadata.locationName.length > 12
-              ? `${task.metadata.locationName.slice(0, 10)}..`
-              : task.metadata.locationName}
-          </div>
-          <MapPin className="size-3" />
-        </div>
+        <DistanceLocationIndicator
+          distance={distance}
+          task={task}
+          isKm={isKm}
+        />
       </div>
 
       {/* Second header line */}
@@ -120,7 +79,7 @@ function TaskHeader({
             {task.user?.name?.split(" ")[0]}
           </p>
         </div>
-        {requiredVoluneersIndicator}
+        <RequiredVolunteersIndicator requiredVoluneers={requiredVoluneers} />
       </div>
     </div>
   );

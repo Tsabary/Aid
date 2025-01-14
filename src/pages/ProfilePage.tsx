@@ -7,7 +7,7 @@ import DiscussionSheet from "../components/home/DiscussionSheet";
 import { Task } from "../types/Task";
 import { TaskCard } from "../components/home/TasksFeed/TaskCard";
 
-function Profile() {
+function ProfilePage() {
   const { profileId } = useParams();
 
   const { entities, setUserId, setLocationFilters, kickstart } = useFeed();
@@ -71,4 +71,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default ProfilePage;

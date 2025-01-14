@@ -21,7 +21,7 @@ export type TaskDraft = {
   category: TaskCategory | null;
 };
 
-function EditRequest() {
+function EditRequestPage() {
   const navigate = useNavigate();
   const { taskId: shortId } = useParams();
   const { entity, updateEntity } = useEntityData({ shortId });
@@ -245,4 +245,4 @@ function EditRequest() {
   );
 }
 
-export default EditRequest;
+export default EditRequestPage;

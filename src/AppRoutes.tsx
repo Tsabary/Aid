@@ -4,15 +4,16 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import HomePage from "./pages/HomePage";
 import { FeedProvider, useUser } from "replyke";
+import Layout from "./components/shared/Layout";
+import HomePage from "./pages/HomePage";
 import SigninPage from "./pages/SigninPage";
 import SignupPage from "./pages/SignupPage";
-import Layout from "./components/shared/Layout";
 import RequestAssistancePage from "./pages/RequestAssistancePage";
 import WelcomePage from "./pages/WelcomePage";
-import Profile from "./pages/Profile";
-import EditRequest from "./pages/EditRequest";
+import ProfilePage from "./pages/ProfilePage";
+import EditRequestPage from "./pages/EditRequestPage";
+import TaskPage from "./pages/TaskPage";
 
 function AppRoutes() {
   const { user } = useUser();
@@ -33,7 +34,7 @@ function AppRoutes() {
             path="/profile/:profileId"
             element={
               <FeedProvider idle>
-                <Profile />
+                <ProfilePage />
               </FeedProvider>
             }
           />
@@ -41,7 +42,8 @@ function AppRoutes() {
             path="/request-assistance"
             element={<RequestAssistancePage />}
           />
-          <Route path="/task/:taskId/edit" element={<EditRequest />} />
+          <Route path="/task/:taskId" element={<TaskPage />} />
+          <Route path="/task/:taskId/edit" element={<EditRequestPage />} />
           <Route path="/welcome" element={<WelcomePage />} />
         </Route>
         <Route
