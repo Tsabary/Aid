@@ -40,7 +40,7 @@ function AppRoutes() {
           />
           <Route
             path="/request-aid"
-            element={<RequestAssistancePage />}
+            element={!user ? <Navigate to="/sign-in" /> :<RequestAssistancePage />}
           />
           <Route path="/task/:taskId" element={<TaskPage />} />
           <Route path="/task/:taskId/edit" element={<EditRequestPage />} />
