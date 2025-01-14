@@ -148,7 +148,7 @@ export function DiscussionSheet({
 
   const mobileSection = (
     <Drawer open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-      <DrawerContent className="h-screen overflow-hidden flex flex-col p-0 pt-6 bg-white">
+      <DrawerContent className="h-screen overflow-hidden flex flex-col p-0 pt-6 bg-white gap-3">
         <DrawerHeader className="px-6 grid gap-2">
           <div className="grid gap-1">
             <div className="flex items-center">
@@ -160,7 +160,7 @@ export function DiscussionSheet({
             <DrawerTitle className="text-base text-start">
               {task?.title}
             </DrawerTitle>
-            <DrawerDescription className="text-sm">
+            <DrawerDescription className="text-sm text-start">
               {task?.content}
             </DrawerDescription>
           </div>
