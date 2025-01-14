@@ -23,8 +23,8 @@ function HomePage() {
     coordinates: { lat: number; lng: number };
   } | null>(null);
 
-  const [radius, setRadius] = useState(500);
-  const [isKm, setIsKm] = useState(true);
+  const [radius, setRadius] = useState(48000);
+  const [isKm, setIsKm] = useState(false);
 
   const handleScroll = useCallback(async () => {
     try {
