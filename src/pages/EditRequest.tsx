@@ -136,9 +136,6 @@ function EditRequest() {
           metadata: {
             volunteersRequired: newTask.volunteersRequired,
             locationName: location.name,
-            applicants: [],
-            assigned: [],
-            dismissed: [],
           },
         },
       });

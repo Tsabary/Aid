@@ -51,9 +51,11 @@ function TaskHeader({
     return R * c; // Distance in the chosen unit
   }, [location, task, isKm]);
 
-  const requiredVoluneers = task.metadata.volunteersRequired
-    ? task.metadata.volunteersRequired - (task.metadata.applicants.length || 0)
-    : null;
+  // const requiredVoluneers = task.metadata.volunteersRequired
+  //   ? task.metadata.volunteersRequired - (task.metadata.applicants.length || 0)
+  //   : null;
+
+  const requiredVoluneers = task.metadata.volunteersRequired;
 
   const requiredVoluneersIndicator = (
     <TooltipProvider>

@@ -131,9 +131,6 @@ function FindHelpPage() {
         metadata: {
           volunteersRequired: newTask.volunteersRequired,
           locationName: location.name,
-          applicants: [],
-          assigned: [],
-          dismissed: [],
         },
       });
       navigate("/");

@@ -7,8 +7,4 @@ export type Task = Entity & {
 type TaskMetadata = {
   volunteersRequired: number | null;
   locationName: string;
-  applicants: string[];
-  assigned: string[];
-  dismissed: string[];
-  isCompleted: boolean;
 };

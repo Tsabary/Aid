@@ -16,7 +16,7 @@ function HeaderWeb({
   const { user } = useUser();
   return (
     <DropdownMenu>
-      <WebDropdown />
+      <WebDropdown setProfileDialogOpen={setProfileDialogOpen} />
       <div className="hidden lg:block">
         <div className="relative mx-auto flex items-center justify-between py-3 px-3 w-full max-w-7xl bg-white">
           <Logo />

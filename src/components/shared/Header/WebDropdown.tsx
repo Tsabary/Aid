@@ -7,7 +7,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useNavigate } from "react-router-dom";
 
-function WebDropdown() {
+function WebDropdown({
+  setProfileDialogOpen,
+}: {
+  setProfileDialogOpen: (state: boolean) => void;
+}) {
   const navigate = useNavigate();
   const { user } = useUser();
   const { signOut } = useAuth();
@@ -30,6 +34,12 @@ function WebDropdown() {
         className="cursor-pointer"
       >
         My Requests
+      </DropdownMenuItem>
+      <DropdownMenuItem
+        onClick={() => setProfileDialogOpen(true)}
+        className="cursor-pointer"
+      >
+        Edit Profile
       </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem onClick={() => signOut?.()} className="cursor-pointer">

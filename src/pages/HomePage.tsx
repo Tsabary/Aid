@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { handleError, useFeed } from "replyke";
+import { useNavigate } from "react-router-dom";
 
 import TasksFeed from "../components/home/TasksFeed";
 import { LocationSelectorDialog } from "../components/shared/LocationSelectorDialog";
@@ -7,7 +8,6 @@ import { RadiusSelectorDialog } from "../components/shared/RadiusSelectorDialog"
 import CategoryFilters from "../components/home/CategoryFilters";
 import LocationFilters from "../components/home/LocationFilters";
 import WelcomeDialog from "../components/home/WelcomeDialog";
-import { useNavigate } from "react-router-dom";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ function HomePage() {
     coordinates: { lat: number; lng: number };
   } | null>(null);
 
-  const [radius, setRadius] = useState(10000);
+  const [radius, setRadius] = useState(500);
   const [isKm, setIsKm] = useState(true);
 
   const handleScroll = useCallback(async () => {
@@ -48,11 +48,11 @@ function HomePage() {
       setLocationFilters?.({
         latitude: location.coordinates.lat,
         longitude: location.coordinates.lng,
-        radius: 10000,
+        radius,
       });
       kickstart?.();
     }
-  }, [location]);
+  }, [location, radius]);
 
   // Load location on launch
   useEffect(() => {
