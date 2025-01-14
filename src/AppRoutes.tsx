@@ -39,7 +39,7 @@ function AppRoutes() {
             }
           />
           <Route
-            path="/request-assistance"
+            path="/request-aid"
             element={<RequestAssistancePage />}
           />
           <Route path="/task/:taskId" element={<TaskPage />} />

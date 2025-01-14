@@ -17,7 +17,7 @@ function HeaderMobile() {
         <Logo />
 
         <div className="flex gap-6">
-          <Link to="/find-volunteers">
+          <Link to="/request-aid">
             <Button variant="ghost">Looking for Aid</Button>
           </Link>
           <NotificationsControl />
