@@ -59,19 +59,19 @@ const NotificationsControlWrapped = () => {
     <AppNotificationsProvider
       notificationTemplates={{
         entityComment: {
-          title: `$userName commented on your request "$entityContent"`,
+          title: `$userName commented on your request "$entityTitle"`,
         },
         commentReply: {
-          title: `$userName replied to your comment on "$entityContent"`,
+          title: `$userName replied to your comment on "$entityTitle"`,
         },
         commentMention: {
-          title: `$userName mentioned you in their comment on "$entityContent"`,
+          title: `$userName mentioned you in their comment on "$entityTitle"`,
         },
         entityUpvote: {
-          title: `$userName upvoted your comment on "$entityContent"`,
+          title: `$userName upvoted your comment on "$entityTitle"`,
         },
         commentUpvote: {
-          title: `$userName upvoted your comment on "$entityContent"`,
+          title: `$userName upvoted your comment on "$entityTitle"`,
         },
       }}
     >
