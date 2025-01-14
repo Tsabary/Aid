@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { AuthProvider, ProjectProvider } from "replyke";
 import AppRoutes from "./AppRoutes";
 import { Toaster } from "./components/ui/toaster";
-import { FirebaseProvider } from "./context/firebase-context";
-import { FirebaseAuthProvider } from "./context/firebase-auth-context";
+// import { FirebaseProvider } from "./context/firebase-context";
+// import { FirebaseAuthProvider } from "./context/firebase-auth-context";
 // import useFirebaseAuth from "./hooks/useFirebaseAuth";
 
 function App() {
@@ -61,11 +61,11 @@ function App() {
 
 const WrappedApp = () => {
   return (
-    <FirebaseProvider>
-      <FirebaseAuthProvider>
-        <App />
-      </FirebaseAuthProvider>
-    </FirebaseProvider>
+    // <FirebaseProvider>
+    // <FirebaseAuthProvider>
+    <App />
+    // </FirebaseAuthProvider>
+    // </FirebaseProvider>
   );
 };
 
