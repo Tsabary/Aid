@@ -10,7 +10,7 @@ import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
-} from "../../ui/dropdown-menu";
+} from "../../../ui/dropdown-menu";
 import SingleNotification from "./SingleNotification";
 
 function NotificationsControl() {

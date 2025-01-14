@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useUser } from "replyke";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 
 function CompleteYourProfile({
   setProfileDialogOpen,

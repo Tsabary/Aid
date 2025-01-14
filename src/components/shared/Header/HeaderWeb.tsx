@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { UserAvatar, useUser } from "replyke";
 
-import Logo from "../shared/Logo";
-import { Button } from "../ui/button";
-import { DropdownMenu, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import Logo from "../Logo";
+import { Button } from "../../ui/button";
+import { DropdownMenu, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 import WebDropdown from "./WebDropdown";
 import CompleteYourProfile from "./CompleteYourProfile";
 import { NotificationsControl } from "./NotificationsControl";

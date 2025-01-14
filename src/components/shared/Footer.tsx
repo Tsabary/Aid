@@ -12,7 +12,7 @@ function Footer() {
         </a> */}
       </div>
       <a
-        href="https://github.com/Tsabary/fires-help"
+        href="https://github.com/Tsabary/Aid"
         className="hover:underline"
       >
         GitHub

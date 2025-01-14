@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { UserAvatar, useUser } from "replyke";
 
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
-import Logo from "../shared/Logo";
-import { Button } from "../ui/button";
+import Logo from "../Logo";
+import { Button } from "../../ui/button";
 import MobileSheet from "./MobileSheet";
 import { NotificationsControl } from "./NotificationsControl";
 
