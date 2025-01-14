@@ -5,6 +5,7 @@ import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import Logo from "../shared/Logo";
 import { Button } from "../ui/button";
 import MobileSheet from "./MobileSheet";
+import { NotificationsControl } from "./NotificationsControl";
 
 function HeaderMobile() {
   const { user } = useUser();
@@ -19,6 +20,8 @@ function HeaderMobile() {
           <Link to="/find-volunteers">
             <Button variant="ghost">Looking for Aid</Button>
           </Link>
+          <NotificationsControl />
+
           {user ? (
             <SheetTrigger>
               <UserAvatar user={user} size={36} />

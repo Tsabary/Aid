@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import WebDropdown from "./WebDropdown";
 import CompleteYourProfile from "./CompleteYourProfile";
+import { NotificationsControl } from "./NotificationsControl";
 
 function HeaderWeb({
   setProfileDialogOpen,
@@ -26,6 +27,7 @@ function HeaderWeb({
               <Button variant="ghost">Looking for Aid</Button>
             </Link>
 
+            <NotificationsControl />
             {user ? (
               <DropdownMenuTrigger className="flex items-center">
                 <UserAvatar user={user} />
