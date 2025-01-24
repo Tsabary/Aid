@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { AuthProvider, ProjectProvider } from "replyke";
+import { ReplykeProvider } from "replyke";
 import AppRoutes from "./AppRoutes";
 import { Toaster } from "./components/ui/toaster";
 // import { FirebaseProvider } from "./context/firebase-context";
@@ -50,12 +50,10 @@ function App() {
   }, []);
 
   return (
-    <ProjectProvider projectId={import.meta.env.VITE_PUBLIC_REPLYKE_PROJECT_ID}>
-      <AuthProvider>
-        <Toaster />
-        <AppRoutes />
-      </AuthProvider>
-    </ProjectProvider>
+    <ReplykeProvider projectId={import.meta.env.VITE_PUBLIC_REPLYKE_PROJECT_ID}>
+      <Toaster />
+      <AppRoutes />
+    </ReplykeProvider>
   );
 }
 

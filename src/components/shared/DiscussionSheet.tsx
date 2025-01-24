@@ -55,14 +55,18 @@ export function DiscussionSheet({
   };
   const styleConfig = useSocialStyle();
 
-  const { CommentSectionProvider, SortByButton, CommentsFeed, NewCommentForm } =
-    useSocialComments({
-      entityId: task?.id,
-      highlightedCommentId: searchParams.get("commentId"),
-      styleConfig,
-      callbacks,
-      limit: 10,
-    });
+  const {
+    CommentSectionProvider,
+    SortByButton,
+    CommentsFeed,
+    NewCommentForm,
+  } = useSocialComments({
+    entityId: task?.id,
+    highlightedCommentId: searchParams.get("commentId"),
+    styleConfig,
+    callbacks,
+    limit: 10,
+  });
 
   const sortByOptions = (
     <div className="flex px-6 items-center gap-1">
@@ -103,31 +107,6 @@ export function DiscussionSheet({
       />
     </div>
   );
-
-  // const contactDetails =
-  //   user && task && task.metadata.applicants.includes(user.id) ? (
-  //     <div className="flex justify-between gap-4">
-  //       {task?.user?.metadata.email ? (
-  //         <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600">
-  //           <Mail className="size-3" />
-  //           <div className="mb-0.5">{task.user.metadata.email}</div>
-  //         </div>
-  //       ) : null}
-  //       {task?.user?.metadata.phoneNumber ? (
-  //         <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600">
-  //           <Phone className="size-2.5" />
-  //           <div className="mb-0.5">{task.user.metadata.phoneNumber}</div>
-  //         </div>
-  //       ) : null}
-  //     </div>
-  //   ) : (
-  //     <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600 w-max">
-  //       <EyeOff className="size-2.5" />
-  //       <div className="mb-0.5">
-  //         Contact details are visibile for volunteers only
-  //       </div>
-  //     </div>
-  //   );
 
   const contactDetails = (
     <div className="flex justify-between gap-4">
@@ -202,7 +181,7 @@ export function DiscussionSheet({
         </SheetHeader>
         <CommentSectionProvider>
           {sortByOptions}
-          <div className="flex-1 flex flex-col overflow-hidden">
+          <div className="relative flex-1 flex flex-col overflow-hidden">
             <ScrollArea className="flex-1 bg-white">
               <CommentsFeed />
               <div className="w-full h-4" />
@@ -221,3 +200,28 @@ export function DiscussionSheet({
 }
 
 export default DiscussionSheet;
+
+// const contactDetails =
+//   user && task && task.metadata.applicants.includes(user.id) ? (
+//     <div className="flex justify-between gap-4">
+//       {task?.user?.metadata.email ? (
+//         <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600">
+//           <Mail className="size-3" />
+//           <div className="mb-0.5">{task.user.metadata.email}</div>
+//         </div>
+//       ) : null}
+//       {task?.user?.metadata.phoneNumber ? (
+//         <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600">
+//           <Phone className="size-2.5" />
+//           <div className="mb-0.5">{task.user.metadata.phoneNumber}</div>
+//         </div>
+//       ) : null}
+//     </div>
+//   ) : (
+//     <div className="flex gap-1.5 text-xs items-center bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600 w-max">
+//       <EyeOff className="size-2.5" />
+//       <div className="mb-0.5">
+//         Contact details are visibile for volunteers only
+//       </div>
+//     </div>
+//   );
