@@ -35,6 +35,7 @@
     "react-measure": "^2.5.2",
     "react-responsive-masonry": "^2.6.0",
     "react-router-dom": "^7.1.1",
+    "replyke": "^4.0.12",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "validator": "^13.12.0",
