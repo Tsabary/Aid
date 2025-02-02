@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { LoaderCircle } from "lucide-react";
-import { handleError, useCreateComment, useEntity, useUser } from "replyke";
+import { handleError, useCreateComment, useEntity, useUser } from "@replyke/react-js";
 import { Textarea } from "../../../../ui/textarea";
 import { Task } from "../../../../../types/Task";
 import { cn } from "../../../../../lib/utils";
@@ -15,14 +15,7 @@ function ApplyToHelp({
   const { entity } = useEntity();
   const task = entity as Task;
 
-  const createComment = useCreateComment({
-    loginRequiredCallback: () => {
-      // We're not passing anything because createComment is only called after we've verified there is a logged in user
-    },
-    commentTooShortCallback: () => {
-      // We're not passing anything because we add content to the comment ourselves anyway
-    },
-  });
+  const createComment = useCreateComment();
 
   const [showApplication, setShowApplication] = useState(false);
   const [commentContent, setCommentContent] = useState("");

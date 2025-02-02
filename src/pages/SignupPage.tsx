@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import validator from "validator";
 import { Loader2 } from "lucide-react";
-import { useAuth } from "replyke";
+import { useAuth } from "@replyke/react-js";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

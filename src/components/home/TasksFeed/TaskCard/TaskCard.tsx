@@ -1,4 +1,4 @@
-import { useEntity } from "replyke";
+import { useEntity } from "@replyke/react-js";
 
 import TaskHeader from "./TaskHeader";
 import { TaskAction } from "./TaskAction";

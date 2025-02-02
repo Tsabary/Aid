@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { handleError, useFeed } from "replyke";
+import { handleError, useFeed } from "@replyke/react-js";
 import { useNavigate } from "react-router-dom";
 
 import TasksFeed from "../components/home/TasksFeed";

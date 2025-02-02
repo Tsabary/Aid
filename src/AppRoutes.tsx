@@ -4,7 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { FeedProvider, useUser } from "replyke";
+import { FeedProvider, useUser } from "@replyke/react-js";
 import Layout from "./components/shared/Layout";
 import HomePage from "./pages/HomePage";
 import SigninPage from "./pages/SigninPage";

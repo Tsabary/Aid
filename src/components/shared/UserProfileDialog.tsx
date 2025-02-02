@@ -1,3 +1,6 @@
+import { handleError, useUser } from "@replyke/react-js";
+import { isEmail } from "validator";
+import { LoaderCircle } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -18,9 +21,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Button } from "../ui/button";
-import { handleError, useUser } from "replyke";
-import { isEmail } from "validator";
-import { LoaderCircle } from "lucide-react";
+
 import { cn } from "../../lib/utils";
 
 function UserProfileDialog({

@@ -1,4 +1,4 @@
-import { useEntity, useUser } from "replyke";
+import { useEntity, useUser } from "@replyke/react-js";
 import EditTask from "./EditTask";
 import ApplyToHelp from "./ApplyToHelp";
 import FullyStaffedOrComplete from "./FullyStaffedOrComplete";

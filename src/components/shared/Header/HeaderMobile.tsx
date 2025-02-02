@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { UserAvatar, useUser } from "replyke";
+import { useUser } from "@replyke/react-js";
+import { UserAvatar } from "@replyke/comments-social-react-js";
 
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import Logo from "../Logo";

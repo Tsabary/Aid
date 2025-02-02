@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ReplykeProvider } from "replyke";
+import { ReplykeProvider } from "@replyke/react-js";
 import AppRoutes from "./AppRoutes";
 import { Toaster } from "./components/ui/toaster";
 // import { FirebaseProvider } from "./context/firebase-context";

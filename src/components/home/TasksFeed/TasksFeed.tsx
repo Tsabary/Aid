@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Entity, EntityProvider, useFeed } from "replyke";
+import { Entity, EntityProvider, useFeed } from "@replyke/react-js";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Measure from "react-measure";
 

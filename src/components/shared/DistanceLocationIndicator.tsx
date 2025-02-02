@@ -1,5 +1,5 @@
-import { Task } from "../../types/Task";
 import { MapPin } from "lucide-react";
+import { Task } from "../../types/Task";
 
 function DistanceLocationIndicator({
   distance,

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useUser } from "replyke";
+import { useUser } from "@replyke/react-js";
 import { Button } from "../../ui/button";
 
 function CompleteYourProfile({

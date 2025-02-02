@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { UserAvatar, useUser } from "replyke";
+import { useUser } from "@replyke/react-js";
+import { UserAvatar } from "@replyke/comments-social-react-js";
 
 import Logo from "../Logo";
 import { Button } from "../../ui/button";

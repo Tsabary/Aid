@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useEntity, useUser } from "replyke";
+import { useEntity, useUser } from "@replyke/react-js";
 import { Task } from "../../../../../types/Task";
 
 function EditTask() {

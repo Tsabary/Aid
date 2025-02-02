@@ -1,4 +1,4 @@
-import { Entity } from "replyke";
+import { Entity } from "@replyke/react-js";
 
 export type Task = Entity & {
   metadata: TaskMetadata;

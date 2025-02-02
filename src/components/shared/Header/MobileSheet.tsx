@@ -1,4 +1,4 @@
-import { useAuth, useUser } from "replyke";
+import { useAuth, useUser } from "@replyke/react-js";
 import { LogOut } from "lucide-react";
 import { SheetContent } from "@/components/ui/sheet";
 

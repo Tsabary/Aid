@@ -1,11 +1,11 @@
-import { useAuth, useUser } from "replyke";
+import { useNavigate } from "react-router-dom";
+import { useAuth, useUser } from "@replyke/react-js";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { useNavigate } from "react-router-dom";
 
 function WebDropdown({
   setProfileDialogOpen,

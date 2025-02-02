@@ -1,14 +1,13 @@
 import React from "react";
-import {
-  SocialStyleCallbacks,
-  useEntity,
-  UserAvatar,
-  useSocialComments,
-  useSocialStyle,
-} from "replyke";
 import { useSearchParams } from "react-router-dom";
 import { Mail, Phone } from "lucide-react";
-
+import { useEntity } from "@replyke/react-js";
+import { UserAvatar } from "@replyke/comments-social-react-js";
+import {
+  SocialStyleCallbacks,
+  useSocialComments,
+  useSocialStyle,
+} from "@replyke/comments-social-react-js"
 import {
   Sheet,
   SheetContent,
@@ -55,18 +54,14 @@ export function DiscussionSheet({
   };
   const styleConfig = useSocialStyle();
 
-  const {
-    CommentSectionProvider,
-    SortByButton,
-    CommentsFeed,
-    NewCommentForm,
-  } = useSocialComments({
-    entityId: task?.id,
-    highlightedCommentId: searchParams.get("commentId"),
-    styleConfig,
-    callbacks,
-    limit: 10,
-  });
+  const { CommentSectionProvider, SortByButton, CommentsFeed, NewCommentForm } =
+    useSocialComments({
+      entityId: task?.id,
+      highlightedCommentId: searchParams.get("commentId"),
+      styleConfig,
+      callbacks,
+      limit: 10,
+    });
 
   const sortByOptions = (
     <div className="flex px-6 items-center gap-1">

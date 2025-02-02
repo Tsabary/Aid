@@ -1,10 +1,10 @@
+import { User } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { User } from "lucide-react";
 
 function RequiredVolunteersIndicator({
   requiredVoluneers,

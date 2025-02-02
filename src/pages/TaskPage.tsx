@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import { EntityProvider, useEntity, UserAvatar } from "replyke";
+import { EntityProvider, useEntity } from "@replyke/react-js";
+import { UserAvatar } from "@replyke/comments-social-react-js";
+
 import { Task } from "../types/Task";
 import { helpCategories } from "../constants/categories";
 import RequiredVolunteersIndicator from "../components/shared/RequiredVolunteersIndicator";

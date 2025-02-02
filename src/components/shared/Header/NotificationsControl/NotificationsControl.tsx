@@ -3,7 +3,7 @@ import {
   AppNotificationsProvider,
   useAppNotifications,
   useUser,
-} from "replyke";
+} from "@replyke/react-js";
 import { Bell, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import {

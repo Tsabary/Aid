@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { handleError, useCreateEntity, useUser } from "replyke";
+import { handleError, useCreateEntity, useUser } from "@replyke/react-js";
 import { LoaderCircle } from "lucide-react";
 
 import { Button } from "../components/ui/button";
