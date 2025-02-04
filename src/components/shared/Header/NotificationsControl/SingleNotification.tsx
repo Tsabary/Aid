@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppNotification, useAppNotifications } from "@replyke/react-js";
-import { FromNow, UserAvatar } from "@replyke/comments-social-react-js";
+import { FromNow, UserAvatar } from "@replyke/ui-core-react-js";
 
 
 function SingleNotification({

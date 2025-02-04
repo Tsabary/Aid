@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useEntity } from "@replyke/react-js";
-import { UserAvatar } from "@replyke/comments-social-react-js";
+import { UserAvatar } from "@replyke/ui-core-react-js";
 import { helpCategories } from "../../../../constants/categories";
 import { Task } from "../../../../types/Task";
 import RequiredVolunteersIndicator from "../../../shared/RequiredVolunteersIndicator";

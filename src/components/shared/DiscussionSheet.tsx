@@ -2,7 +2,7 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { Mail, Phone } from "lucide-react";
 import { useEntity } from "@replyke/react-js";
-import { UserAvatar } from "@replyke/comments-social-react-js";
+import { UserAvatar } from "@replyke/ui-core-react-js";
 import {
   SocialStyleCallbacks,
   useSocialComments,

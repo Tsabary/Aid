@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { EntityProvider, useEntity } from "@replyke/react-js";
-import { UserAvatar } from "@replyke/comments-social-react-js";
+import { UserAvatar } from "@replyke/ui-core-react-js";
 
 import { Task } from "../types/Task";
 import { helpCategories } from "../constants/categories";
