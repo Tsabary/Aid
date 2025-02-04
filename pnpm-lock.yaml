@@ -58,10 +58,10 @@ importers:
         version: 1.1.7(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@replyke/comments-social-react-js':
         specifier: ^0.1.5
-        version: 0.1.5(@replyke/core@4.0.3(react@18.3.1))(axios@1.7.9)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+        version: 0.1.5(@replyke/core@4.0.3)(axios@1.7.9)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@replyke/react-js':
-        specifier: ^0.1.5
-        version: 0.1.5(react@18.3.1)
+        specifier: ^4.0.3
+        version: 4.0.3
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -1004,12 +1004,10 @@ packages:
       react-dom: ^18.0.0
 
   '@replyke/core@4.0.3':
-    resolution: {integrity: sha512-4kg4TPxXIqkBr6wOS4n1bpGhsRaRPbH6Uk28i99FCNJJp46nFMs2KGzbMkXbtesEQJJ3g8lAJc2udg7Gsb1Amg==, tarball: https://npm.pkg.github.com/download/@replyke/core/4.0.3/c85cd45e702d01c2c313c73a8a40a0f050eedefc}
-    peerDependencies:
-      react: ^18.0.0
+    resolution: {integrity: sha512-voksJcl9aT6dj+Nx9ZuAgxK6YY27CbAGc8Lfmbr0RDptdMIkJcu5KkZXj7fXdhuxhQdca1bPFvHSXye67Qj+TQ==}
 
-  '@replyke/react-js@0.1.5':
-    resolution: {integrity: sha512-QMzeAPPZb/QI8EHnpDEmAGwlvP8x2ZgREfTY5cqIOHKXk9gYNj+/hjfVFJS6QItSf5keepcEoycT8dpMQn0HmQ==, tarball: https://npm.pkg.github.com/download/@replyke/react-js/0.1.5/9d170cdd1455f067231da5b14bbcb5f510bd37da}
+  '@replyke/react-js@4.0.3':
+    resolution: {integrity: sha512-nF0YZ7lxTJzbq5icz5mASLbrIVLMxfZDa6g7Ir96wKxKY+8bFDT9hMKiMCLVKhl8ktrA3LBOu9Kv4pFL/lnuDQ==}
 
   '@replyke/ui-core-react-js@0.1.4':
     resolution: {integrity: sha512-pfJWTByoRhH17j7IkKUX08igI9rDYv2tMogtmk2j7taihHVqPTUEYoxlVtw3qmlOVHpk6N2oLSgbpvpgco78tg==, tarball: https://npm.pkg.github.com/download/@replyke/ui-core-react-js/0.1.4/60fb8acc89414e5d868c4a0976462fa7760cac74}
@@ -3172,16 +3170,16 @@ snapshots:
 
   '@radix-ui/rect@1.1.0': {}
 
-  '@replyke/comments-social-core@0.1.3(@replyke/core@4.0.3(react@18.3.1))(react@18.3.1)':
+  '@replyke/comments-social-core@0.1.3(@replyke/core@4.0.3)(react@18.3.1)':
     dependencies:
-      '@replyke/core': 4.0.3(react@18.3.1)
+      '@replyke/core': 4.0.3
       '@replyke/ui-core': 0.1.3
       react: 18.3.1
 
-  '@replyke/comments-social-react-js@0.1.5(@replyke/core@4.0.3(react@18.3.1))(axios@1.7.9)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
+  '@replyke/comments-social-react-js@0.1.5(@replyke/core@4.0.3)(axios@1.7.9)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
     dependencies:
-      '@replyke/comments-social-core': 0.1.3(@replyke/core@4.0.3(react@18.3.1))(react@18.3.1)
-      '@replyke/ui-core-react-js': 0.1.4(@replyke/core@4.0.3(react@18.3.1))(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@replyke/comments-social-core': 0.1.3(@replyke/core@4.0.3)(react@18.3.1)
+      '@replyke/ui-core-react-js': 0.1.4(@replyke/core@4.0.3)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       axios: 1.7.9
       moment: 2.30.1
       react: 18.3.1
@@ -3190,29 +3188,27 @@ snapshots:
       - '@replyke/core'
       - styled-components
 
-  '@replyke/core@4.0.3(react@18.3.1)':
+  '@replyke/core@4.0.3':
     dependencies:
       axios: 1.7.9
       buffer: 6.0.3
       js-cookie: 3.0.5
       lodash: 4.17.21
       node-forge: 1.3.1
-      react: 18.3.1
     transitivePeerDependencies:
       - debug
 
-  '@replyke/react-js@0.1.5(react@18.3.1)':
+  '@replyke/react-js@4.0.3':
     dependencies:
-      '@replyke/core': 4.0.3(react@18.3.1)
+      '@replyke/core': 4.0.3
     transitivePeerDependencies:
       - debug
-      - react
 
-  '@replyke/ui-core-react-js@0.1.4(@replyke/core@4.0.3(react@18.3.1))(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
+  '@replyke/ui-core-react-js@0.1.4(@replyke/core@4.0.3)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
     dependencies:
       '@giphy/js-fetch-api': 5.6.0
       '@giphy/react-components': 9.8.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
-      '@replyke/core': 4.0.3(react@18.3.1)
+      '@replyke/core': 4.0.3
       moment: 2.30.1
     transitivePeerDependencies:
       - react
